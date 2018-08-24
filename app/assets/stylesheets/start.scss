@@ -1,0 +1,163 @@
+.login-signup {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.button-signup {
+ width: 300px;
+ height: 150px;
+ color: #ffffff;
+ background-color: #1c627a;
+ font-family: 'Montserrat', sans-serif;
+ font-weight: lighter;
+ border-radius: 3px;
+ text-align: center;
+ line-height: 2rem;
+ font-size: .875rem;
+ margin: .6875rem 0 0;
+ font-weight: 400;
+ font-size: 50px;
+ line-height: 55px;
+ padding: 5px;
+}
+
+.login-form {
+  display: flex;
+  font-family: 'Montserrat', sans-serif;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+
+}
+
+.errors-div {
+  width: 395px;
+  text-align: left;
+  display: flex;
+  color: #d30303;
+  font-weight: lighter;
+}
+
+#please-sign-in {
+  border-bottom: 1px solid lightgray;
+  width: 395px;
+  text-align: left;
+  display: flex;
+  flex-direction: column-reverse;
+  padding: 0;
+  border: 1px;
+  margin: 8px 0px;
+  border-bottom: 1px solid lightgray;
+  border-radius: 3px;
+}
+#please-sign-up {
+  border-bottom: 1px solid lightgray;
+  width: 395px;
+  text-align: left;
+  display: flex;
+  flex-direction: column-reverse;
+  padding: 0;
+  border: 1px;
+  margin: 8px 0px;
+  border-bottom: 1px solid lightgray;
+  border-radius: 3px;
+}
+
+#please-sign-in h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: lighter;
+  font-size: 30px;
+  position: relative;
+  margin-bottom: 3px;
+}
+
+#please-sign-up h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: lighter;
+  font-size: 30px;
+  position: relative;
+  margin-bottom: 3px;
+}
+
+.email-input {
+  width: 362px;
+  height: 20px;
+  padding: 16px;
+  border: 1px;
+  margin: 8px 0px;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  display: inline-block;
+}
+.password-input {
+  width: 362px;
+  height: 20px;
+  padding: 16px;
+  border: 1px;
+  margin-bottom: 8px;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.forgot-password {
+  width: 380px;
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  margin: 2px 0 5px 0;
+  color: blue;
+}
+
+.club-input {
+  width: 362px;
+  height: 20px;
+  padding: 16px;
+  border: 1px;
+  margin-bottom: 8px;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.pro-member {
+  padding: 10px;
+}
+
+.pro-member-input {
+  margin: 0 0 0 15px;
+}
+
+.submit-button {
+  width: 362px;
+  height: 20px;
+  padding: 16px;
+  border: 1px;
+  margin-bottom: 8px;
+  border: 1px solid lightgray;
+  display: inline-block;
+  text-align: center;
+  background-color: #da3743;
+  border-radius: 3px;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
+}
+
+.club-name-header {
+  margin: auto;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+
+}
+.header-name {
+  margin-top: 10px;
+}
+.header-button {
+  margin-top: 10px;
+}

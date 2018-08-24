@@ -1,0 +1,47 @@
+.pro-options {
+  display: flex;
+
+  flex-direction: column;
+  justify-content: center;
+}
+
+.pro-options-list {
+  height: 550px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+.pro-options-list a {
+  width: 200px;
+  height:100px;
+  margin: 10px;
+}
+
+.options-heading {
+  width: 100%;
+  text-align: center;
+  margin: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.button-options {
+   display: flex;
+   width: 200px;
+   height: 100px;
+   color: orange;
+   background-color: #2C4870;
+   font-family: 'Montserrat', sans-serif;
+   font-weight: lighter;
+   border-radius: 20px;
+   text-align: center;
+   margin: 10px;
+   font-weight: 400;
+   font-size: 25px;
+   line-height: 30px;
+   padding: 5px;
+   align-items: center;
+   vertical-align: middle;
+   justify-content: center;
+}

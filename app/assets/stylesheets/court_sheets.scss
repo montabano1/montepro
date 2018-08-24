@@ -1,0 +1,188 @@
+.court-sheet {
+  display: flex;
+  flex-direction: row;
+  text-align: row;
+  vertical-align: middle;
+  justify-content: center;
+}
+.choose-court {
+  width: 100%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.court-select {
+  width: 200px;
+  height: 52px;
+  font-size: 20px;
+}
+.court-option {
+  width: fit-content;
+  height: 52px;
+  font-size: 20px;
+  padding: 13px;
+  margin-top: 20px;
+}
+.court-day {
+  text-align: center;
+}
+.court-column {
+  text-align: center;
+}
+.court-time {
+  display: flex;
+  height: 30px;
+  width: 100px;
+  background-color: orange;
+  border: 2px solid black;
+  align-items: center;
+  vertical-align: middle;
+  justify-content: center;
+}
+#booking-header h3{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: lighter;
+  font-size: 30px;
+  position: relative;
+  margin-bottom: 3px;
+  text-align: center;
+}
+.booking-options {
+  margin-top: 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: lighter;
+  font-size: 30px;
+}
+
+.setup-courts {
+  margin-left: 30px;
+}
+.titles {
+  margin-top: 35px;
+}
+.court-num {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: lighter;
+  font-size: 25px;
+  margin-left: 10px;
+}
+.court-date {
+  height: 52px;
+  width: 180px;
+  background-color: white;
+  border-radius: 3px;
+  font-family: 'ABeeZee', sans-serif;
+  text-align: center;
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid black;
+}
+.court-date input {
+  background: transparent;
+  padding-left: 30px;
+}
+
+.court-name {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: lighter;
+  font-size: 30px;
+  margin-left: 100px;
+}
+.court-type {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: lighter;
+  font-size: 30px;
+  margin-left: 120px;
+}
+.court-name-input {
+  width: 240px;
+  height: 20px;
+  padding: 16px;
+  border: 1px;
+  margin: 8px 0px;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: lighter;
+  font-size: 20px;
+}
+.booking-name-input {
+  width: 280px;
+  height: 20px;
+  padding: 16px;
+  border: 1px;
+  margin: 8px 0px;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: lighter;
+  font-size: 20px;
+}
+
+.court-type-input {
+  margin-left: 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: lighter;
+  font-size: 20px;
+  height: 54px;
+}
+.booking-input {
+  margin: 30px 0 100px 0;
+  width: 200px;
+  height: 52px;
+  font-size: 20px;
+}
+.booking-form-questions {
+  display: flex;
+  justify-content: space-between;
+}
+.not-booked {
+  height: 30px;
+  width: 100px;
+  background-color: lightgreen;
+  border: 2px solid black;
+}
+.booked {
+  height: 30px;
+  width: 100px;
+  background-color: lightgray;
+  border: 2px solid black;
+  overflow: hidden;
+  font-size: 13px;
+}
+.submit-book {
+  width: fit-content;
+  height: 20px;
+  padding: 16px;
+  border: 1px;
+  margin-top: 29px;
+  margin-bottom: 8px;
+  border: 1px solid lightgray;
+  display: inline-block;
+  text-align: center;
+  background-color: #da3743;
+  border-radius: 8px;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
+}
+.submit-courts {
+  width: 250px;
+  height: 20px;
+  padding: 16px;
+  border: 1px;
+  margin: 29px 0 0 80px;
+  border: 1px solid lightgray;
+  display: inline-block;
+  text-align: center;
+  background-color: #da3743;
+  border-radius: 8px;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
+}
