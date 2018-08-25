@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_23_192449) do
+ActiveRecord::Schema.define(version: 2018_08_25_162643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "availabilities", force: :cascade do |t|
+    t.integer "pro_id", null: false
+    t.string "day", null: false
+    t.integer "start_time", null: false
+    t.integer "end_time", null: false
+    t.index ["pro_id"], name: "index_availabilities_on_pro_id"
+  end
 
   create_table "bookings", force: :cascade do |t|
     t.integer "club_id", null: false
@@ -25,6 +33,7 @@ ActiveRecord::Schema.define(version: 2018_08_23_192449) do
     t.string "start_time", null: false
     t.string "end_time", null: false
     t.string "title"
+    t.string "color"
     t.index ["booked_by_id"], name: "index_bookings_on_booked_by_id"
     t.index ["court_num"], name: "index_bookings_on_court_num"
   end
@@ -55,6 +64,10 @@ ActiveRecord::Schema.define(version: 2018_08_23_192449) do
     t.string "registerable", null: false
     t.string "start_time", null: false
     t.string "end_time", null: false
+    t.integer "maxppl"
+    t.string "date", null: false
+    t.integer "club_id", null: false
+    t.index ["club_id"], name: "index_events_on_club_id"
   end
 
   create_table "memberships", force: :cascade do |t|

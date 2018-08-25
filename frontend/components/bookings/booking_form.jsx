@@ -13,7 +13,7 @@ class BookingForm extends React.Component {
       club_id: this.props.club_id,
       court_num: this.props.court_num,
       booked_by_id: this.props.currentUser.id,
-      title: ''
+      title: '',
     };
 		this.handleSubmit = this.handleSubmit.bind(this);
     this.renderErrors = this.renderErrors.bind(this);
@@ -51,6 +51,7 @@ class BookingForm extends React.Component {
 
     this.props.createBooking(this.state).then((booking) => {
       this.props.closeModal();
+      window.scrollTo(0, 0)
       this.props.history.push(`/court`);
     });}
   }

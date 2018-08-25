@@ -62,6 +62,7 @@ class CourtSetup extends React.Component {
       }
     }
     this.props.editUser(Object.assign({}, this.props.currentUser, {authorized: 'true'})).then((user) => {
+      window.scrollTo(0, 0)
       this.props.history.push(`/options/pro`);
     });
   }
@@ -79,8 +80,6 @@ class CourtSetup extends React.Component {
             onChange={this.update('name', i)} />
           <select className='court-type-input'
               type="text"
-              list="types"
-              placeholder="Court Type"
               onChange={this.update('court_type', i)} >
             <option value="Tennis"> Tennis</option>
             <option value="Paddle">Paddle</option>

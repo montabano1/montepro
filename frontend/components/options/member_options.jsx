@@ -20,6 +20,9 @@ const memberOptions = () => {
         <Link to={'/Game'}>
           <div className='button-options'>Find a Game</div>
         </Link>
+        <Link to={'/Lesson'}>
+          <div className='button-options'>Book a Lesson</div>
+        </Link>
         <Link to={'/Comment'}>
           <div className='button-options'>Leave a Comment for Your Pro</div>
         </Link>
