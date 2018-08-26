@@ -2,6 +2,14 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Link, Redirect } from 'react-router-dom';
 
+const times = ['6:00 AM','6:30 AM','7:00 AM','7:30 AM','8:00 AM','8:30 AM',
+'9:00 AM','9:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM','12:00 PM',
+'12:30 PM','1:00 PM','1:30 PM','2:00 PM','2:30 PM','3:00 PM','3:30 PM',
+'4:00 PM','4:30 PM','5:00 PM','5:30 PM','6:00 PM','6:30 PM','7:00 PM',
+'7:30 PM','8:00 PM','8:30 PM','9:00 PM','9:30 PM','10:00 PM','10:30 PM',
+'11:00 PM','11:30 PM'
+]
+
 class BookingForm extends React.Component {
 
   constructor(props) {
@@ -45,6 +53,15 @@ class BookingForm extends React.Component {
 	handleSubmit(e) {
     e.preventDefault();
     const fieldErrors = [];
+    const bookings = Object.values(this.props.bookings)
+    debugger
+    bookings.forEach((booking) => {
+      if(((booking.start_time < this.state.end_time && booking.start_time > this.state.start_time) ||
+        (booking.end_time < this.state.end_time && booking.end_time > this.state.start_time)) &&
+        this.state.court_num === booking.court_num) {
+          fieldErrors.push([`There is already a court booked from ${times[booking.start_time]} to ${times[booking.end_time]} on court "${this.props.courts[booking.court_num].name}"`]);
+        }
+    })
     if(fieldErrors.length > 0) {
       this.props.sendErrors(fieldErrors);
     } else {
@@ -57,6 +74,13 @@ class BookingForm extends React.Component {
   }
 
 	render() {
+    const times = ['6:00 AM','6:30 AM','7:00 AM','7:30 AM','8:00 AM','8:30 AM',
+    '9:00 AM','9:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM','12:00 PM',
+    '12:30 PM','1:00 PM','1:30 PM','2:00 PM','2:30 PM','3:00 PM','3:30 PM',
+    '4:00 PM','4:30 PM','5:00 PM','5:30 PM','6:00 PM','6:30 PM','7:00 PM',
+    '7:30 PM','8:00 PM','8:30 PM','9:00 PM','9:30 PM','10:00 PM','10:30 PM',
+    '11:00 PM','11:30 PM'
+    ]
     const ampm = this.props.start_time < 13 ? 'AM' : 'PM';
     const military = this.props.start_time < 15 ? 0 : 12;
     return (

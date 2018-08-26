@@ -15,6 +15,8 @@ const mapStateToProps = (state) => {
     errors: state.errors.session,
     currentUser: state.entities.users[state.session.id],
     name: state.session.info.name,
+    bookings: state.entities.bookings,
+    courts: state.entities.courts,
   };
 };
 
