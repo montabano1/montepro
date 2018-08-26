@@ -94,7 +94,7 @@ class EventForm extends React.Component {
     if(fieldErrors.length > 0) {
       this.props.sendErrors(fieldErrors);
     } else {
-      debugger
+
       this.props.createEvent(this.state).then(() => {
         confirmedcourts.forEach((court) => {
           this.props.createBooking({

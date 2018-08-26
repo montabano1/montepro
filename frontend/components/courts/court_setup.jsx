@@ -54,7 +54,6 @@ class CourtSetup extends React.Component {
     if(fieldErrors.length > 0) {
       this.props.sendErrors(fieldErrors);
     } else {
-      debugger
       for(let i=0; i < this.props.court_amt; i++) {
         this.props.createCourt(this.state.courts[i]).then(() => {
           let wait;
