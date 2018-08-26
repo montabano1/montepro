@@ -133,7 +133,16 @@ class EventForm extends React.Component {
         </div>
       );
     })
-
+    const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+    const datesscheckbox = [];
+    courts.forEach((court) => {
+      courtscheckbox.push(
+        <div key={court.id} className='checkbox-item'>
+          <input className='procheckbox' type="checkbox" id={court.id} key={`${court.id} - box`} name="courtsselected" value={court.id}/>
+          <label className='proname' key={`${court.id} - name`}>{court.name}</label>
+        </div>
+      );
+    })
     return (
       <div className='event-form'>
 				<div id='please-sign-up'>

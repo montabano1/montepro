@@ -12,10 +12,10 @@ export const fetchCourts = (id) => {
   })
 }
 
-export const createCourt = (courts) => {
+export const createCourt = (court) => {
   return $.ajax ({
     method: 'POST',
     url: `/api/courts`,
-    data: { courts }
+    data: { court }
   })
 }
