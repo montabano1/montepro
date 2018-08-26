@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as APIUtil from './util/session_api_util';
 import * as actions from './actions/session_actions';
+import * as bookings from './actions/booking_actions';
 import configureStore from './store/store';
 import Root from './components/root';
 
@@ -22,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.dispatch = store.dispatch;
   window.getState = store.getState;
 	window.signup = actions.signup;
+	window.createBooking = actions.createBooking;
   const root = document.getElementById('root');
   ReactDOM.render(<Root store={ store }></Root>, root);
 

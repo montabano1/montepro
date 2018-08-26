@@ -54,7 +54,6 @@ class BookingForm extends React.Component {
     e.preventDefault();
     const fieldErrors = [];
     const bookings = Object.values(this.props.bookings)
-    debugger
     bookings.forEach((booking) => {
       if(((booking.start_time < this.state.end_time && booking.start_time > this.state.start_time) ||
         (booking.end_time < this.state.end_time && booking.end_time > this.state.start_time)) &&

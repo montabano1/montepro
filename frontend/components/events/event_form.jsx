@@ -2,6 +2,14 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Link, Redirect } from 'react-router-dom';
 
+const times = ['6:00 AM','6:30 AM','7:00 AM','7:30 AM','8:00 AM','8:30 AM',
+'9:00 AM','9:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM','12:00 PM',
+'12:30 PM','1:00 PM','1:30 PM','2:00 PM','2:30 PM','3:00 PM','3:30 PM',
+'4:00 PM','4:30 PM','5:00 PM','5:30 PM','6:00 PM','6:30 PM','7:00 PM',
+'7:30 PM','8:00 PM','8:30 PM','9:00 PM','9:30 PM','10:00 PM','10:30 PM',
+'11:00 PM','11:30 PM'
+]
+
 class EventForm extends React.Component {
 
   constructor(props) {
@@ -14,21 +22,27 @@ class EventForm extends React.Component {
       title: '',
       maxppl: 0,
       registerable: 'yes',
-      event_type: '',
+      event_type: 'Clinic',
     };
 		this.handleSubmit = this.handleSubmit.bind(this);
     this.renderErrors = this.renderErrors.bind(this);
   }
 
-  update() {
+  componentDidMount() {
+    this.props.fetchPros(this.props.currentUser.club_id);
+    this.props.fetchCourts(this.props.currentUser.club_id);
+  }
+
+  update(field) {
 	  return (e) => {
-	    this.setState({title: e.target.value});
+	    this.setState({[field]: e.target.value});
     };
 	}
-  updateColor(field) {
+  updateDate() {
 	  return (e) => {
-	    this.color[field] = e.target.value;
-    };
+	    this.setState({date: e.target.value});
+      this.props.fetchBookings(this.props.currentUser.club_id, e.target.value);
+	  };
 	}
 
   renderErrors() {
@@ -46,160 +60,237 @@ class EventForm extends React.Component {
 	handleSubmit(e) {
     e.preventDefault();
     const fieldErrors = [];
+    const confirmedpros = [];
+    document.getElementsByName('prosselected').forEach((pro) => {
+      if(pro.checked) {
+        confirmedpros.push(pro.value)
+      }
+    });
+    const confirmedcourts = [];
+    document.getElementsByName('courtsselected').forEach((court) => {
+      if(court.checked) {
+        confirmedcourts.push(court.value)
+      }
+    });
+    if(this.state.title.length === 0) {
+      fieldErrors.push('-Please enter a title for your event')
+    }
+    if(this.state.date.length === 0) {
+      fieldErrors.push('-Please enter a date for your event')
+    }
+    if(this.state.start_time >= this.state.end_time) {
+      fieldErrors.push('-Please have your event end after it starts')
+    }
+    const bookings = Object.values(this.props.bookings)
+    bookings.forEach((booking) => {
+      confirmedcourts.forEach((court) => {
+        if(((booking.start_time < this.state.end_time && booking.start_time > this.state.start_time) ||
+        (booking.end_time < this.state.end_time && booking.end_time > this.state.start_time)) &&
+        parseInt(court) === booking.court_num) {
+          fieldErrors.push([`-There is already a court booked from ${times[booking.start_time]} to ${times[booking.end_time]} on court "${this.props.courtsCheck[booking.court_num].name}", please either delete that event or remove "${this.props.courtsCheck[booking.court_num].name}" from the checklist`]);
+        }
+      })
+    })
     if(fieldErrors.length > 0) {
       this.props.sendErrors(fieldErrors);
     } else {
-
-    this.props.createEvent(this.state).then((event) => {
-      this.props.closeModal();
-      window.scrollTo(0, 0)
-      this.props.history.push(`/events/${event.event.id}`);
-    });}
+      debugger
+      this.props.createEvent(this.state).then(() => {
+        confirmedcourts.forEach((court) => {
+          this.props.createBooking({
+            date: this.state.date,
+            start_time: this.state.start_time,
+            end_time: this.state.end_time,
+            club_id: this.props.currentUser.club_id,
+            title: this.state.title,
+            court_num: parseInt(court),
+            booked_by_id: this.props.currentUser.id
+          })
+        })
+        window.scrollTo(0, 0)
+        this.props.history.push(`/court`);
+      })
+    }
   }
 
   render() {
+    const pros = this.props.pros;
+    const proscheckbox = [];
+    pros.forEach((pro) => {
+      proscheckbox.push(
+        <div key={pro.id} className='checkbox-item'>
+          <input className='procheckbox' type="checkbox" id={pro.id} key={`${pro.id} - box`} name="prosselected" value={pro.id}/>
+          <label className='proname' key={`${pro.id} - name`}>{pro.username}</label>
+        </div>
+      );
+    })
+    const courts = this.props.courts;
+    const courtscheckbox = [];
+    courts.forEach((court) => {
+      courtscheckbox.push(
+        <div key={court.id} className='checkbox-item'>
+          <input className='procheckbox' type="checkbox" id={court.id} key={`${court.id} - box`} name="courtsselected" value={court.id}/>
+          <label className='proname' key={`${court.id} - name`}>{court.name}</label>
+        </div>
+      );
+    })
+
     return (
-      <div className='login-form'>
+      <div className='event-form'>
 				<div id='please-sign-up'>
           <h3 >Create your Event!</h3>
         </div>
-        <div className='errors-div'>{this.renderErrors()}</div>
-				<form onSubmit={this.handleSubmit} className='event-form'>
-            <strong> Title: </strong>
-            <input
-              className='event-title'
-              type="text"
-              placeholder='ex. Cardio Tennis or Lesson w/ G. Smith'
-              onChange={this.update('title')} />
-            <br/>
-            <strong> Date: </strong>
-            <input type="date" onChange={this.update('date')} />
-            <strong> Event Type: </strong>
-            <select
-              className='email-input'
-              onChange={this.update('event_type')} >
-              <option value='Clinic'>Clinic</option>
-              <option value='Tournament'>Tournament</option>
-              <option value='Match'>Match</option>
-              <option value='Member Event'>Member Event</option>
-              <option value='Other'>Other</option>
-            </select>
-            <strong> Can members register? :</strong>
-            <select
-              className='event-register'
-              type="text"
-              placeholder='Password for Members'
-              onChange={this.update('registerable')} >
-              <option value='Yes'>Yes</option>
-              <option value='No'>No</option>
-            </select>
-            <strong> Max number of registrants: </strong>
-            <input
-              className='event-max'
-              type="number"
-              placeholder='Max number of registrants'
-              onChange={this.update('maxppl')} />
-            <strong> Event start time: </strong>
-            <select
-              className='event-start'
-              type="text"
-              placeholder='Event start time'
-              onChange={this.update('email')} >
-              <option className='court-time' value="6:00">6:00 AM</option>
-              <option className='court-time' value="6:30">6:30 AM</option>
-              <option className='court-time' value="7:00">7:00 AM</option>
-              <option className='court-time' value="7:30">7:30 AM</option>
-              <option className='court-time' value="8:00">8:00 AM</option>
-              <option className='court-time' value="8:30">8:30 AM</option>
-              <option className='court-time' value="9:00">9:00 AM</option>
-              <option className='court-time' value="9:30">9:30 AM</option>
-              <option className='court-time' value="10:00">10:00 AM</option>
-              <option className='court-time' value="10:30">10:30 AM</option>
-              <option className='court-time' value="11:00">11:00 AM</option>
-              <option className='court-time' value="11:30">11:30 AM</option>
-              <option className='court-time' value="12:00">12:00 PM</option>
-              <option className='court-time' value="12:30">12:30 PM</option>
-              <option className='court-time' value="13:00">1:00 PM</option>
-              <option className='court-time' value="13:30">1:30 PM</option>
-              <option className='court-time' value="14:00">2:00 PM</option>
-              <option className='court-time' value="14:30">2:30 PM</option>
-              <option className='court-time' value="15:00">3:00 PM</option>
-              <option className='court-time' value="15:30">3:30 PM</option>
-              <option className='court-time' value="16:00">4:00 PM</option>
-              <option className='court-time' value="16:30">4:30 PM</option>
-              <option className='court-time' value="17:00">5:00 PM</option>
-              <option className='court-time' value="17:30">5:30 PM</option>
-              <option className='court-time' value="18:00">6:00 PM</option>
-              <option className='court-time' value="18:30">6:30 PM</option>
-              <option className='court-time' value="19:00">7:00 PM</option>
-              <option className='court-time' value="19:30">7:30 PM</option>
-              <option className='court-time' value="20:00">8:00 PM</option>
-              <option className='court-time' value="20:30">8:30 PM</option>
-              <option className='court-time' value="21:00">9:00 PM</option>
-              <option className='court-time' value="21:30">9:30 PM</option>
-              <option className='court-time' value="22:00">10:00 PM</option>
-              <option className='court-time' value="22:30">10:30 PM</option>
-              <option className='court-time' value="23:00">11:00 PM</option>
-              <option className='court-time' value="23:30">11:30 PM</option>
-            </select>
-            <strong> Event end time: </strong>
-            <select
-              className='event-start'
-              type="text"
-              placeholder='Event start time'
-              onChange={this.update('email')} >
-              <option className='court-time' value="6:00">6:00 AM</option>
-              <option className='court-time' value="6:30">6:30 AM</option>
-              <option className='court-time' value="7:00">7:00 AM</option>
-              <option className='court-time' value="7:30">7:30 AM</option>
-              <option className='court-time' value="8:00">8:00 AM</option>
-              <option className='court-time' value="8:30">8:30 AM</option>
-              <option className='court-time' value="9:00">9:00 AM</option>
-              <option className='court-time' value="9:30">9:30 AM</option>
-              <option className='court-time' value="10:00">10:00 AM</option>
-              <option className='court-time' value="10:30">10:30 AM</option>
-              <option className='court-time' value="11:00">11:00 AM</option>
-              <option className='court-time' value="11:30">11:30 AM</option>
-              <option className='court-time' value="12:00">12:00 PM</option>
-              <option className='court-time' value="12:30">12:30 PM</option>
-              <option className='court-time' value="13:00">1:00 PM</option>
-              <option className='court-time' value="13:30">1:30 PM</option>
-              <option className='court-time' value="14:00">2:00 PM</option>
-              <option className='court-time' value="14:30">2:30 PM</option>
-              <option className='court-time' value="15:00">3:00 PM</option>
-              <option className='court-time' value="15:30">3:30 PM</option>
-              <option className='court-time' value="16:00">4:00 PM</option>
-              <option className='court-time' value="16:30">4:30 PM</option>
-              <option className='court-time' value="17:00">5:00 PM</option>
-              <option className='court-time' value="17:30">5:30 PM</option>
-              <option className='court-time' value="18:00">6:00 PM</option>
-              <option className='court-time' value="18:30">6:30 PM</option>
-              <option className='court-time' value="19:00">7:00 PM</option>
-              <option className='court-time' value="19:30">7:30 PM</option>
-              <option className='court-time' value="20:00">8:00 PM</option>
-              <option className='court-time' value="20:30">8:30 PM</option>
-              <option className='court-time' value="21:00">9:00 PM</option>
-              <option className='court-time' value="21:30">9:30 PM</option>
-              <option className='court-time' value="22:00">10:00 PM</option>
-              <option className='court-time' value="22:30">10:30 PM</option>
-              <option className='court-time' value="23:00">11:00 PM</option>
-              <option className='court-time' value="23:30">11:30 PM</option>
-            </select>
-            <div>
-              <input type="color" id="backgroundcolor" name="color" defaultValue="#e66465" />
-              <label >Court Sheet Background Color</label>
-            </div>
-            <div>
-              <input type="color" id="textcolor" name="color" defaultValue="#000000"/>
-              <label >Court Sheet Text Color</label>
-            </div>
-            <input
-              className='event-color'
-              list='colors'
-              type="text"
-              placeholder='Address for Directions'
-              onChange={this.update('address')} />
-          <input className='submit-button' type="submit" value="Create Club" />
+
+				<form onSubmit={this.handleSubmit} >
+            <section>
+              <strong> Title: </strong>
+              <input
+                className='event-title'
+                type="text"
+                placeholder='ex. Cardio Tennis or Smith Event'
+                onChange={this.update('title')} />
+            </section>
+            <section className='event-date'>
+              <strong> Date: </strong>
+              <input
+              className= 'event-date-input'
+              type="date"
+              onChange={this.updateDate('date').bind(this)} />
+            </section>
+            <section>
+              <strong> Event Type: </strong>
+              <select
+                className='event-type'
+                onChange={this.update('event_type')} >
+                <option value='Clinic'>Clinic</option>
+                <option value='Tournament'>Tournament</option>
+                <option value='Match'>Match</option>
+                <option value='Member Event'>Member Event</option>
+                <option value='Other'>Other</option>
+              </select>
+            </section>
+            <section>
+              <strong> Can members register? : </strong>
+              <select
+                className='event-register'
+                type="text"
+                onChange={this.update('registerable')} >
+                <option value='Yes'>Yes</option>
+                <option value='No'>No</option>
+              </select>
+            </section>
+            <section>
+              <strong> Max number of registrants: </strong>
+              <input
+                className='event-max'
+                type="number"
+                defaultValue='4'
+                onChange={this.update('maxppl')} />
+            </section>
+            <section>
+              <strong> Event start time: </strong>
+              <select
+                className='event-type'
+                type="text"
+                placeholder='Event start time'
+                onChange={this.update('start_time')} >
+                <option className='court-time' value="0">6:00 AM</option>
+                <option className='court-time' value="1">6:30 AM</option>
+                <option className='court-time' value="2">7:00 AM</option>
+                <option className='court-time' value="3">7:30 AM</option>
+                <option className='court-time' value="4">8:00 AM</option>
+                <option className='court-time' value="5">8:30 AM</option>
+                <option className='court-time' value="6">9:00 AM</option>
+                <option className='court-time' value="7">9:30 AM</option>
+                <option className='court-time' value="8">10:00 AM</option>
+                <option className='court-time' value="9">10:30 AM</option>
+                <option className='court-time' value="10">11:00 AM</option>
+                <option className='court-time' value="11">11:30 AM</option>
+                <option className='court-time' value="12">12:00 PM</option>
+                <option className='court-time' value="13">12:30 PM</option>
+                <option className='court-time' value="14">1:00 PM</option>
+                <option className='court-time' value="15">1:30 PM</option>
+                <option className='court-time' value="16">2:00 PM</option>
+                <option className='court-time' value="17">2:30 PM</option>
+                <option className='court-time' value="18">3:00 PM</option>
+                <option className='court-time' value="19">3:30 PM</option>
+                <option className='court-time' value="20">4:00 PM</option>
+                <option className='court-time' value="21">4:30 PM</option>
+                <option className='court-time' value="22">5:00 PM</option>
+                <option className='court-time' value="23">5:30 PM</option>
+                <option className='court-time' value="24">6:00 PM</option>
+                <option className='court-time' value="25">6:30 PM</option>
+                <option className='court-time' value="26">7:00 PM</option>
+                <option className='court-time' value="27">7:30 PM</option>
+                <option className='court-time' value="28">8:00 PM</option>
+                <option className='court-time' value="29">8:30 PM</option>
+                <option className='court-time' value="30">9:00 PM</option>
+                <option className='court-time' value="31">9:30 PM</option>
+                <option className='court-time' value="32">10:00 PM</option>
+                <option className='court-time' value="33">10:30 PM</option>
+                <option className='court-time' value="34">11:00 PM</option>
+                <option className='court-time' value="35">11:30 PM</option>
+              </select>
+            </section>
+            <section>
+              <strong> Event end time: </strong>
+              <select
+                className='event-type'
+                type="text"
+                placeholder='Event start time'
+                onChange={this.update('end_time')} >
+                <option className='court-time' value="0">6:00 AM</option>
+                <option className='court-time' value="1">6:30 AM</option>
+                <option className='court-time' value="2">7:00 AM</option>
+                <option className='court-time' value="3">7:30 AM</option>
+                <option className='court-time' value="4">8:00 AM</option>
+                <option className='court-time' value="5">8:30 AM</option>
+                <option className='court-time' value="6">9:00 AM</option>
+                <option className='court-time' value="7">9:30 AM</option>
+                <option className='court-time' value="8">10:00 AM</option>
+                <option className='court-time' value="9">10:30 AM</option>
+                <option className='court-time' value="10">11:00 AM</option>
+                <option className='court-time' value="11">11:30 AM</option>
+                <option className='court-time' value="12">12:00 PM</option>
+                <option className='court-time' value="13">12:30 PM</option>
+                <option className='court-time' value="14">1:00 PM</option>
+                <option className='court-time' value="15">1:30 PM</option>
+                <option className='court-time' value="16">2:00 PM</option>
+                <option className='court-time' value="17">2:30 PM</option>
+                <option className='court-time' value="18">3:00 PM</option>
+                <option className='court-time' value="19">3:30 PM</option>
+                <option className='court-time' value="20">4:00 PM</option>
+                <option className='court-time' value="21">4:30 PM</option>
+                <option className='court-time' value="22">5:00 PM</option>
+                <option className='court-time' value="23">5:30 PM</option>
+                <option className='court-time' value="24">6:00 PM</option>
+                <option className='court-time' value="25">6:30 PM</option>
+                <option className='court-time' value="26">7:00 PM</option>
+                <option className='court-time' value="27">7:30 PM</option>
+                <option className='court-time' value="28">8:00 PM</option>
+                <option className='court-time' value="29">8:30 PM</option>
+                <option className='court-time' value="30">9:00 PM</option>
+                <option className='court-time' value="31">9:30 PM</option>
+                <option className='court-time' value="32">10:00 PM</option>
+                <option className='court-time' value="33">10:30 PM</option>
+                <option className='court-time' value="34">11:00 PM</option>
+                <option className='court-time' value="35">11:30 PM</option>
+              </select>
+            </section>
+            <section className='pros-checkbox-area'>
+              <strong> Pros teaching: </strong>
+              <div className='checkbox-list'>
+                {proscheckbox}
+              </div>
+            </section>
+            <section className='pros-checkbox-area'>
+              <strong> Book courts: </strong>
+              <div className='checkbox-list'>
+                {courtscheckbox}
+              </div>
+            </section>
+            <div className='errors-div'>{this.renderErrors()}</div>
+          <input className='submit-button' type="submit" value="Create Event" />
         </form>
       </div>
     );

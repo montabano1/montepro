@@ -29,10 +29,19 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def pros
+    @pros = User.where(club_id: id).where(pro_member: 'pro')
+    render :pros
+  end 
+
   private
 
   def user_params
     params.require(:user).permit(:username, :password, :email, :pro_member, :authorized, :club_id)
+  end
+
+  def id
+    params[:club_id]
   end
 
 end

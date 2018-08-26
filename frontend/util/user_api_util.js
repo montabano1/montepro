@@ -4,6 +4,13 @@ export const fetchUser = (id) => {
     url: `/api/users/${id}`
   })
 }
+export const fetchPros = (id) => {
+  return $.ajax ({
+    method: 'GET',
+    url: `/api/user/pros`,
+    data: { club_id: id }
+  })
+}
 
 export const updateUser = user => {
   return $.ajax({

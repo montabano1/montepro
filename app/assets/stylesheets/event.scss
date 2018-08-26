@@ -1,0 +1,71 @@
+.event-form {
+  display: flex;
+  font-family: 'Montserrat', sans-serif;
+  flex-direction: column;
+  padding-left: 20px;
+}
+
+.event-title {
+  width: 362px;
+  height: 20px;
+  padding: 16px;
+  border: 1px;
+  margin: 8px 0px;
+  border: 1px solid black;
+  border-radius: 3px;
+  display: inline-block;
+}
+.event-date-input {
+  height: 52px;
+  width: 180px;
+  background-color: white;
+  border-radius: 3px;
+  font-family: 'ABeeZee', sans-serif;
+  text-align: center;
+  font-size: 15px;
+  overflow: hidden;
+  border: 1px solid black;
+}
+.event-type {
+  height: 50px;
+  width: 150px;
+  margin: 5px 0 5px 0;
+  background-color: white;
+  font-size: 15px;
+  border: 1px solid black;
+  text-align: center;
+  padding-left: 30px;
+}
+.event-register {
+  height: 50px;
+  width: 50px;
+  margin: 5px 0 5px 0;
+  background-color: white;
+  font-size: 15px;
+  border: 1px solid black;
+}
+.event-max {
+  width: 30px;
+  height: 20px;
+  padding: 16px;
+  border: 1px;
+  margin: 8px 0;
+  border: 1px solid black;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.pros-checkbox-area {
+  display: flex;
+  margin: 15px 0;
+}
+
+.checkbox-item {
+  margin: 5px;
+}
+.procheckbox {
+  margin: 0 3px;
+}
+.proname {
+  margin-left: 3px;
+}

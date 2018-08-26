@@ -13,6 +13,6 @@ Rails.application.routes.draw do
     resources :teams, only: [:create, :edit, :show, :destroy]
     resources :events, only: [:create, :edit, :show, :destroy]
     resources :signups, only: [:create, :edit, :show, :destroy]
-
+    get '/user/pros', to: 'users#pros'
   end
 end

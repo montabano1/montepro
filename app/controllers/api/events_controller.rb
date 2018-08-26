@@ -29,6 +29,7 @@ class Api::EventsController < ApplicationController
     else
       render json: ['something went wrong'], status: 422
     end
+  end 
 
   def destroy
     @event = Event.find(params[:id])
