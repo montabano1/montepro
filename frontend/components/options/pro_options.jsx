@@ -11,8 +11,9 @@ class ProOptions extends React.Component {
   }
 
   render() {
-
+    const today = new Date();
     return(
+
       (this.props.currentUser.pro_member === 'pro' && this.props.currentUser.authorized === 'false') ?
       <Redirect to="/options/pro/courtsetup" /> :
       <main className='pro-options'>
@@ -20,7 +21,7 @@ class ProOptions extends React.Component {
           Please click on one of the following:
         </section>
         <section className='pro-options-list'>
-          <Link to={'/Court'}>
+          <Link to={`/court/${today.getFullYear()}-${(today.getMonth() + 101).toString().slice(1)}-${(today.getDate() + 100).toString().slice(1)}`}>
             <div className='button-options'>Create / Edit Court Times</div>
           </Link>
           <Link to={'/Availabilities'}>

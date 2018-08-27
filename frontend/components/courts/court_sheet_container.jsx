@@ -12,7 +12,7 @@ class CourtSheetContainer extends React.Component {
     super(props);
     const today = new Date();
     this.state = {
-      date: `${today.getFullYear()}-${(today.getMonth() + 101).toString().slice(1)}-${(today.getDate() + 100).toString().slice(1)}`,
+      date: this.props.date,
       courttype: 'Tennis',
       courts: this.props.courts,
       bookings: this.props.bookings
@@ -27,6 +27,7 @@ class CourtSheetContainer extends React.Component {
 	  return (e) => {
 	    this.setState({date: e.target.value});
       this.props.fetchBookings(this.props.currentUser.club_id, e.target.value);
+      this.props.history.push(`/court/${e.target.value}`)
 	  };
 	}
 
@@ -118,8 +119,6 @@ class CourtSheetContainer extends React.Component {
         </div>
       )
     });
-    const today = new Date();
-    const test = `${today.getFullYear()}-${(today.getMonth() + 101).toString().slice(1)}-${(today.getDate() + 100).toString().slice(1)}`
     return (
       <div>
         <section className='choose-court'>
@@ -127,7 +126,7 @@ class CourtSheetContainer extends React.Component {
           <section className='court-date'>
             <input
               type="date"
-              defaultValue={test}
+              defaultValue={this.state.date}
               onChange={this.updateDate('date').bind(this)}
               />
           </ section >
@@ -150,7 +149,7 @@ class CourtSheetContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   const courts = Object.values(state.entities.courts).sort(function(a, b) {
   var nameA = a.name.toUpperCase();
   var nameB = b.name.toUpperCase();
@@ -165,7 +164,8 @@ const mapStateToProps = state => {
   return {
     bookings: Object.values(state.entities.bookings),
     courts: courts,
-    currentUser: state.entities.users[state.session.id]
+    currentUser: state.entities.users[state.session.id],
+    date: ownProps.location.pathname.split('/')[ownProps.location.pathname.split('/').length -1]
   };
 };
 

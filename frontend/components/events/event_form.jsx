@@ -52,6 +52,12 @@ class EventForm extends React.Component {
       x.classList.toggle('hidden')
     }
   }
+  toggleHidden() {
+    const x = document.getElementById('weekdays');
+    if (x) {
+      x.classList.toggle('hidden')
+    }
+  }
   renderErrors() {
     return(
       <ul>
@@ -94,11 +100,12 @@ class EventForm extends React.Component {
     if(parseInt(this.state.start_time) >= parseInt(this.state.end_time)) {
       fieldErrors.push('-Please have your event end after it starts')
     }
-    if(document.getElementById('recurring').value === 'Yes' && confirmeddays.length === 0) {
+    const recur = document.getElementById('recurring').value
+    if(recur === 'Yes' && confirmeddays.length === 0) {
       fieldErrors.push('-Please choose recurring days')
     }
-    const recdate = document.getElementById('recurringdate').value
-    if(recdate.length === 0 && document.getElementById('recurring').value === 'Yes') {
+    let recdate = document.getElementById('recurringdate').value
+    if(recdate.length === 0 && recur === 'Yes') {
       fieldErrors.push('-Please choose stop date of recursion')
     }
     const bookings = Object.values(this.props.bookings)
@@ -110,10 +117,15 @@ class EventForm extends React.Component {
         }
       })
     })
+
     if(fieldErrors.length > 0) {
       this.props.sendErrors(fieldErrors);
     }
     else {
+      if (recur === 'No') {
+        confirmeddays.push(days[new Date(this.state.date).getUTCDay()]);
+        recdate = this.state.date
+      }
       this.props.createEvent(this.state).then(() => {
         confirmedcourts.forEach((court) => {
           confirmeddays.forEach((day)=> {
@@ -126,7 +138,7 @@ class EventForm extends React.Component {
           })
         })
         window.scrollTo(0, 0)
-        this.props.history.push(`/court`);
+        this.props.history.push(`/court/${this.state.date}`);
       })
     }
   }
@@ -157,7 +169,8 @@ class EventForm extends React.Component {
     days.forEach((day, i) => {
       dayscheckbox.push(
         <div key={day} className='checkbox-item'>
-          <input className='procheckbox' type="checkbox" id={day} key={`${day} - box`} name="daysselected" value={day}/>
+          <input className='procheckbox' type="checkbox" id={day} key={`${day} - box`}
+          name="daysselected" value={day} />
           <label className='proname' key={`${day} - name`}>{day}</label>
         </div>
       );
