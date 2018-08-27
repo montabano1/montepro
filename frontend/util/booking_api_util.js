@@ -20,3 +20,10 @@ export const createBooking = (booking) => {
     data: { booking }
   })
 }
+export const createBookings = (bookings) => {
+  return $.ajax ({
+    method: 'GET',
+    url: `/api/booking/mult`,
+    data: { bookings }
+  })
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Link, Redirect } from 'react-router-dom';
+import { merge } from 'lodash'
 
 const times = ['6:00 AM','6:30 AM','7:00 AM','7:30 AM','8:00 AM','8:30 AM',
 '9:00 AM','9:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM','12:00 PM',
@@ -9,6 +10,7 @@ const times = ['6:00 AM','6:30 AM','7:00 AM','7:30 AM','8:00 AM','8:30 AM',
 '7:30 PM','8:00 PM','8:30 PM','9:00 PM','9:30 PM','10:00 PM','10:30 PM',
 '11:00 PM','11:30 PM'
 ]
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
 class EventForm extends React.Component {
 
@@ -20,7 +22,7 @@ class EventForm extends React.Component {
       end_time: 0,
       club_id: this.props.currentUser.club_id,
       title: '',
-      maxppl: 0,
+      maxppl: 4,
       registerable: 'yes',
       event_type: 'Clinic',
     };
@@ -44,7 +46,12 @@ class EventForm extends React.Component {
       this.props.fetchBookings(this.props.currentUser.club_id, e.target.value);
 	  };
 	}
-
+  toggleHidden() {
+    const x = document.getElementById('weekdays');
+    if (x) {
+      x.classList.toggle('hidden')
+    }
+  }
   renderErrors() {
     return(
       <ul>
@@ -72,38 +79,50 @@ class EventForm extends React.Component {
         confirmedcourts.push(court.value)
       }
     });
+    const confirmeddays = [];
+    document.getElementsByName('daysselected').forEach((day) => {
+      if(day.checked) {
+        confirmeddays.push(day.value)
+      }
+    });
     if(this.state.title.length === 0) {
       fieldErrors.push('-Please enter a title for your event')
     }
     if(this.state.date.length === 0) {
       fieldErrors.push('-Please enter a date for your event')
     }
-    if(this.state.start_time >= this.state.end_time) {
+    if(parseInt(this.state.start_time) >= parseInt(this.state.end_time)) {
       fieldErrors.push('-Please have your event end after it starts')
+    }
+    if(document.getElementById('recurring').value === 'Yes' && confirmeddays.length === 0) {
+      fieldErrors.push('-Please choose recurring days')
+    }
+    const recdate = document.getElementById('recurringdate').value
+    if(recdate.length === 0 && document.getElementById('recurring').value === 'Yes') {
+      fieldErrors.push('-Please choose stop date of recursion')
     }
     const bookings = Object.values(this.props.bookings)
     bookings.forEach((booking) => {
       confirmedcourts.forEach((court) => {
-        if(((booking.start_time < this.state.end_time && booking.start_time > this.state.start_time) ||
-        (booking.end_time < this.state.end_time && booking.end_time > this.state.start_time)) &&
-        parseInt(court) === booking.court_num) {
-          fieldErrors.push([`-There is already a court booked from ${times[booking.start_time]} to ${times[booking.end_time]} on court "${this.props.courtsCheck[booking.court_num].name}", please either delete that event or remove "${this.props.courtsCheck[booking.court_num].name}" from the checklist`]);
+        if(((booking.time <= this.state.end_time && booking.time >= this.state.start_time) &&
+        parseInt(court) === booking.court_num)) {
+          fieldErrors.push([`-Court "${this.props.courtsCheck[booking.court_num].name}" is already  booked at ${times[booking.time]}`]);
         }
       })
     })
     if(fieldErrors.length > 0) {
       this.props.sendErrors(fieldErrors);
-    } else {
+    }
+    else {
       this.props.createEvent(this.state).then(() => {
         confirmedcourts.forEach((court) => {
-          this.props.createBooking({
-            date: this.state.date,
-            start_time: this.state.start_time,
-            end_time: this.state.end_time,
-            club_id: this.props.currentUser.club_id,
-            title: this.state.title,
-            court_num: parseInt(court),
-            booked_by_id: this.props.currentUser.id
+          confirmeddays.forEach((day)=> {
+            this.props.createBookings(merge({}, this.state, {
+              booked_by_id: this.props.currentUser.id,
+              day: day,
+              court_num: parseInt(court),
+              recd: recdate
+            }))
           })
         })
         window.scrollTo(0, 0)
@@ -133,23 +152,26 @@ class EventForm extends React.Component {
         </div>
       );
     })
-    const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
-    const datesscheckbox = [];
-    courts.forEach((court) => {
-      courtscheckbox.push(
-        <div key={court.id} className='checkbox-item'>
-          <input className='procheckbox' type="checkbox" id={court.id} key={`${court.id} - box`} name="courtsselected" value={court.id}/>
-          <label className='proname' key={`${court.id} - name`}>{court.name}</label>
+
+    const dayscheckbox = [];
+    days.forEach((day, i) => {
+      dayscheckbox.push(
+        <div key={day} className='checkbox-item'>
+          <input className='procheckbox' type="checkbox" id={day} key={`${day} - box`} name="daysselected" value={day}/>
+          <label className='proname' key={`${day} - name`}>{day}</label>
         </div>
       );
     })
+
     return (
       <div className='event-form'>
 				<div id='please-sign-up'>
           <h3 >Create your Event!</h3>
+          <div className='event-errors-div'>{this.renderErrors()}</div>
         </div>
 
-				<form onSubmit={this.handleSubmit} >
+				<form onSubmit={this.handleSubmit} className='form-items'>
+          <section className='event-inputs'>
             <section>
               <strong> Title: </strong>
               <input
@@ -178,7 +200,7 @@ class EventForm extends React.Component {
               </select>
             </section>
             <section>
-              <strong> Can members register? : </strong>
+              <strong> Can members register?  </strong>
               <select
                 className='event-register'
                 type="text"
@@ -285,6 +307,8 @@ class EventForm extends React.Component {
                 <option className='court-time' value="35">11:30 PM</option>
               </select>
             </section>
+          </section>
+          <section className='checkboxes'>
             <section className='pros-checkbox-area'>
               <strong> Pros teaching: </strong>
               <div className='checkbox-list'>
@@ -297,7 +321,32 @@ class EventForm extends React.Component {
                 {courtscheckbox}
               </div>
             </section>
-            <div className='errors-div'>{this.renderErrors()}</div>
+            <section>
+              <strong> Recurring event?  </strong>
+              <select
+                className='event-register'
+                id='recurring'
+                type="text"
+                onChange={this.toggleHidden} >
+                <option value='No'>No</option>
+                <option value='Yes'>Yes</option>
+              </select>
+            </section>
+            <section id='weekdays' className='days-checkbox-area hidden'>
+              <section className='pros-checkbox-area'>
+                <strong> Choose days: </strong>
+                <div className='checkbox-list'>
+                  {dayscheckbox}
+                </div>
+                <strong> Choose last day: </strong>
+                <input
+                className= 'event-date-input'
+                id='recurringdate'
+                type="date" />
+              </section>
+            </section>
+          </section>
+
           <input className='submit-button' type="submit" value="Create Event" />
         </form>
       </div>

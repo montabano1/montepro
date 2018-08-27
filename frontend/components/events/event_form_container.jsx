@@ -7,7 +7,7 @@ import { closeModal } from '../../actions/modal_actions';
 import { fetchClub } from '../../actions/club_actions';
 import { fetchCourts } from '../../actions/court_actions';
 import { fetchPros } from '../../actions/user_actions';
-import { fetchBookings, createBooking } from '../../actions/booking_actions';
+import { fetchBookings, createBooking, createBookings } from '../../actions/booking_actions';
 
 const mapStateToProps = (state) => {
   const courts = Object.values(state.entities.courts).sort(function(a, b) {
@@ -39,6 +39,7 @@ const mapDispatchToProps = dispatch => {
     fetchCourts: (id) => dispatch(fetchCourts(id)),
     createEvent: (event) => dispatch(createEvent(event)),
     createBooking: (booking) => dispatch(createBooking(booking)),
+    createBookings: (bookings) => dispatch(createBookings(bookings)),
     fetchPros: (id) => dispatch(fetchPros(id)),
     fetchBookings: (id, date) => dispatch(fetchBookings(id, date)),
   };

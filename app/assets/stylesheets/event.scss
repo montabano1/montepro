@@ -4,9 +4,27 @@
   flex-direction: column;
   padding-left: 20px;
 }
-
+.form-items {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+.form-items section {
+  max-width: 380px;
+}
+.event-errors-div {
+  width: 700px;
+  text-align: left;
+  display: flex;
+  color: #d30303;
+  font-weight: lighter;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px;
+}
 .event-title {
-  width: 362px;
+  width: 300px;
   height: 20px;
   padding: 16px;
   border: 1px;
@@ -58,6 +76,14 @@
 .pros-checkbox-area {
   display: flex;
   margin: 15px 0;
+  flex-direction: column;
+  margin-left: 20px;
+}
+.checkbox-list {
+  margin-bottom: 20px;
+}
+.hidden {
+  display: none;
 }
 
 .checkbox-item {
@@ -68,4 +94,10 @@
 }
 .proname {
   margin-left: 3px;
+}
+.checkboxes {
+  max-height: 400px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 }

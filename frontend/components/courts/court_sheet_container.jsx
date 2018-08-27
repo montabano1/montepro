@@ -91,7 +91,7 @@ class CourtSheetContainer extends React.Component {
           onClick={() => {
             this.props.sendInfo({
               date: this.state.date,
-              start_time: i,
+              time: i,
               club_id: this.props.currentUser.club_id,
               court_num: filtered_courts[j].id,
               name: filtered_courts[j].name
@@ -106,9 +106,7 @@ class CourtSheetContainer extends React.Component {
     for(let j=0; j < bookings.length; j++) {
       for(let k=0; k < filtered_courts.length; k++) {
         if(filtered_courts[k].id === bookings[j].court_num) {
-          for(let i = 0; i < bookings[j].end_time - bookings[j].start_time; i++){
-            court_divs[k][parseInt(bookings[j].start_time) + i] = <div className='booked' key={`${k}-${j}-${i}`}>{bookings[j].title}</div>;
-          }
+          court_divs[k][parseInt(bookings[j].time)] = <div className='booked' key={`${k}-${j}`}>{bookings[j].title}</div>;
         }
       }
     }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_25_162643) do
+ActiveRecord::Schema.define(version: 2018_08_27_021124) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,12 +30,12 @@ ActiveRecord::Schema.define(version: 2018_08_25_162643) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "date", null: false
-    t.string "start_time", null: false
-    t.string "end_time", null: false
     t.string "title"
     t.string "color"
+    t.integer "time"
     t.index ["booked_by_id"], name: "index_bookings_on_booked_by_id"
     t.index ["court_num"], name: "index_bookings_on_court_num"
+    t.index ["time", "date", "court_num"], name: "index_bookings_on_time_and_date_and_court_num", unique: true
   end
 
   create_table "clubs", force: :cascade do |t|
