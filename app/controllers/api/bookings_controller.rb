@@ -13,7 +13,8 @@ class Api::BookingsController < ApplicationController
           club_id: booking_params[:club_id],
           title: booking_params[:title],
           court_num: booking_params[:court_num],
-          booked_by_id: booking_params[:booked_by_id]
+          booked_by_id: booking_params[:booked_by_id],
+          event_type: booking_params[:event_type]
         )
         if temp.save
           @bookings << temp
@@ -38,7 +39,8 @@ class Api::BookingsController < ApplicationController
               club_id: booking_params[:club_id],
               title: booking_params[:title],
               court_num: booking_params[:court_num],
-              booked_by_id: booking_params[:booked_by_id]
+              booked_by_id: booking_params[:booked_by_id],
+              event_type: booking_params[:event_type]
             )
             if temp.save
               @bookings << temp

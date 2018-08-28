@@ -24,7 +24,7 @@ class EventForm extends React.Component {
       title: '',
       maxppl: 4,
       registerable: 'yes',
-      event_type: 'Adult Clinic',
+      event_type: 'adult clinic',
     };
 		this.handleSubmit = this.handleSubmit.bind(this);
     this.renderErrors = this.renderErrors.bind(this);
@@ -128,7 +128,8 @@ class EventForm extends React.Component {
               booked_by_id: this.props.currentUser.id,
               day: day,
               court_num: parseInt(court),
-              recd: recdate
+              recd: recdate,
+              event_type: this.state.event_type
             }))
           })
         })
@@ -142,12 +143,14 @@ class EventForm extends React.Component {
     const pros = this.props.pros;
     const proscheckbox = [];
     pros.forEach((pro) => {
-      proscheckbox.push(
+      if (pro.pro_member === 'pro') {
+        proscheckbox.push(
         <div key={pro.id} className='checkbox-item'>
           <input className='procheckbox' type="checkbox" id={pro.id} key={`${pro.id} - box`} name="prosselected" value={pro.id}/>
           <label className='proname' key={`${pro.id} - name`}>{pro.username}</label>
         </div>
-      );
+        );
+      }
     })
     const courts = this.props.courts;
     const courtscheckbox = [];
@@ -200,12 +203,12 @@ class EventForm extends React.Component {
               <select
                 className='event-type'
                 onChange={this.update('event_type')} >
-                <option value='Adult Clinic'>Adult Clinic</option>
-                <option value='Kids Clinic'>Kids Clinic</option>
-                <option value='Tournament'>Tournament</option>
-                <option value='Match'>Match</option>
-                <option value='Member Event'>Member Event</option>
-                <option value='Other'>Other</option>
+                <option value='adult clinic'>Adult Clinic</option>
+                <option value='kids clinic'>Kids Clinic</option>
+                <option value='tournament'>Tournament</option>
+                <option value='match'>Match</option>
+                <option value='member event'>Member Event</option>
+                <option value='other'>Other</option>
               </select>
             </section>
             <section>

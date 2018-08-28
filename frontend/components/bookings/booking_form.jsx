@@ -23,7 +23,8 @@ class BookingForm extends React.Component {
       court_num: this.props.court_num,
       booked_by_id: this.props.currentUser.id,
       title: '',
-      end_time: '2'
+      end_time: '2',
+      event_type: 'booking'
     };
 		this.handleSubmit = this.handleSubmit.bind(this);
     this.renderErrors = this.renderErrors.bind(this);
