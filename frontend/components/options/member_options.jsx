@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+const today = new Date();
 const memberOptions = () => {
   return (
     <main className='pro-options'>
@@ -8,7 +9,7 @@ const memberOptions = () => {
         Please click on one of the following:
       </section>
       <section className='pro-options-list'>
-        <Link to={'/Court'}>
+        <Link to={`/court/${today.getFullYear()}-${(today.getMonth() + 101).toString().slice(1)}-${(today.getDate() + 100).toString().slice(1)}`}>
           <div className='button-options'>Book a Court</div>
         </Link>
         <Link to={'/Register'}>

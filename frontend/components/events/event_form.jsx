@@ -24,7 +24,7 @@ class EventForm extends React.Component {
       title: '',
       maxppl: 4,
       registerable: 'yes',
-      event_type: 'Clinic',
+      event_type: 'Adult Clinic',
     };
 		this.handleSubmit = this.handleSubmit.bind(this);
     this.renderErrors = this.renderErrors.bind(this);
@@ -46,7 +46,7 @@ class EventForm extends React.Component {
       this.props.fetchBookings(this.props.currentUser.club_id, e.target.value);
 	  };
 	}
-  
+
   toggleHidden() {
     const x = document.getElementById('weekdays');
     if (x) {
@@ -200,7 +200,8 @@ class EventForm extends React.Component {
               <select
                 className='event-type'
                 onChange={this.update('event_type')} >
-                <option value='Clinic'>Clinic</option>
+                <option value='Adult Clinic'>Adult Clinic</option>
+                <option value='Kids Clinic'>Kids Clinic</option>
                 <option value='Tournament'>Tournament</option>
                 <option value='Match'>Match</option>
                 <option value='Member Event'>Member Event</option>
