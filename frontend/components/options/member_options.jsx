@@ -44,16 +44,16 @@ class MemberOptions extends React.Component {
           <Link to={'/game'}>
             <div className='button-options'>Find a Game</div>
           </Link>
-          <Link to={'/comment'}>
-          <div className='button-options'>Leave a Comment for Your Pro</div>
+          <Link to={'/teamemail'}>
+          <div className='button-options'>Send your team an email</div>
           </Link>
           <Link to={'/lesson'}>
             <div className='button-options'>Book a Lesson</div>
           </Link>
-          <Link to={'/Profile'}>
+          <Link to={'/profile'}>
             <div className='button-options'>Update Profile</div>
           </Link>
-          <Link to={'/Lookup'}>
+          <Link to={'/lookup'}>
             <div className='button-options'>Club Lookup</div>
           </Link>
         </section>
