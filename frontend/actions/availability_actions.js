@@ -23,9 +23,9 @@ export const fetchAvailability = (id) => {
     );
   };
 };
-export const fetchAvailabilities = (id, date) => {
+export const fetchAvailabilities = (id) => {
   return dispatch => {
-    return APIUtil.fetchAvailabilities(id, date).then(
+    return APIUtil.fetchAvailabilities(id).then(
       availabilities => dispatch(receiveAvailabilities(availabilities))
     );
   };

@@ -11,11 +11,11 @@ export const editAvailability = (id) => {
   })
 }
 
-export const fetchAvailabilities = (id, date) => {
+export const fetchAvailabilities = (id) => {
   return $.ajax ({
     method: 'GET',
     url: `/api/availabilities`,
-    data: {club_id: id, date:date}
+    data: {club_id: id}
   })
 }
 

@@ -9,6 +9,7 @@ class User < ApplicationRecord
   after_initialize :ensure_session_token
 
   has_many :memberships
+  has_many :availabilities, foreign_key: :pro_id, class_name: :Availability
 
 
   def self.find_by_credentials(email, password)

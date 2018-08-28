@@ -21,6 +21,7 @@ class CreateAvailabilityForm extends React.Component {
       start_time: 0,
       end_time: 0,
       day: 'Sunday',
+      club_id: this.props.currentUser.club_id
     };
 		this.handleSubmit = this.handleSubmit.bind(this);
     this.renderErrors = this.renderErrors.bind(this);
@@ -28,6 +29,7 @@ class CreateAvailabilityForm extends React.Component {
 
   componentDidMount() {
     this.props.fetchPros(this.props.currentUser.club_id);
+    this.props.fetchAvailabilities(this.props.currentUser.club_id);
   }
 
   update(field) {
@@ -68,18 +70,58 @@ class CreateAvailabilityForm extends React.Component {
   render() {
     const pros = this.props.pros;
     const proslist = [];
+    const prosAvails = {};
+    const dayslist = [];
+    const availslist = {};
+    const printAvails = new Array(pros.length);
+    for(let i = 0; i < printAvails.length; i++) {
+      printAvails[i] = [];
+    }
     pros.forEach((pro) => {
       proslist.push(
         <option className='pro-avail-option' value={pro.id} key={`pro - ${pro.id}`}>{pro.username}</option>
       );
+      prosAvails[pro.username] = {Saturday: [], Sunday: [], Monday: [], Tuesday: [], Wednesday: [], Thursday: [], Friday: []};
     })
-    const dayslist = [];
-    days.forEach((day, i) => {
-      dayslist.push(
-        <option className='day-avail-option' value={day} key={`day - ${i}`}>{day}</option>
-      );
-    })
+    if (this.props.prosOb && this.props.avails && this.props.pros) {
+      this.props.avails.forEach((avail) => {
+        prosAvails[this.props.prosOb[avail.pro_id].username][avail.day].push(` ${times[avail.start_time]} - ${times[avail.end_time]}`)
+      })
 
+      ;
+      days.forEach((day, i) => {
+        dayslist.push(
+          <option className='day-avail-option' value={day} key={`day - ${i}`}>{day}</option>
+        );
+      })
+
+
+      pros.forEach((pro) => {
+        availslist[pro.username] = []
+      })
+      const namepros = Object.keys(availslist)
+      namepros.forEach((pro)=> {
+        days.forEach((day) => {
+          if(prosAvails[pro][day].length > 0) {
+            availslist[pro].push(`${day}: ${prosAvails[pro][day]}`)
+          }
+        })
+      })
+
+      namepros.forEach((pro, i) => {
+        printAvails[i].push([
+          <div id={`${pro}-avail-final`}>
+            <strong className='avail-pro-name'>{pro}</strong>
+            <button value='edit'>edit</button>
+            <br/>
+          </div>
+        ])
+        availslist[pro].forEach((avail) => {
+          printAvails[i].push(<div className='daily-avail'><strong>{avail}</strong></div>)
+        })
+      })
+
+    }
     const timeslist = [
       <option className='court-time' key="0" value="0">6:00 AM</option>,
       <option className='court-time' key="1" value="1">6:30 AM</option>,
@@ -172,6 +214,9 @@ class CreateAvailabilityForm extends React.Component {
 
           <input className='submit-button-avails' type="submit" value="Create Availability" />
         </form>
+        <section className='availability-list'>
+          {printAvails}
+        </section>
       </div>
     );
   }

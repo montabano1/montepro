@@ -1,7 +1,12 @@
 .availability-form {
   margin-left: 20px;
 }
-
+.avail-pro-name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 30px;
+  border-bottom: 1px solid black;
+  margin-right: 7px;
+}
 .avail-input {
   height: 40px;
   width: 100px;
@@ -12,7 +17,11 @@
   text-align: center;
   padding-left: 30px;
 }
-
+.daily-avail {
+  padding-left: 20px;
+  margin: 5px 0;
+  font-family: 'Montserrat', sans-serif;
+}
 .avail-inputs {
   display: flex;
   border: 1px solid black;
@@ -27,7 +36,7 @@
   height: 20px;
   padding: 16px 0;
   border: 1px;
-  margin-top: 18px;
+  margin: 18px 0;
   border: 1px solid lightgray;
   display: inline-block;
   text-align: center;
