@@ -7,6 +7,7 @@ import SignupOptionsContainer from './options/signup_options_container';
 import CourtSheetContainer from './courts/court_sheet_container';
 import CourtSetupContainer from './courts/court_setup_container';
 import EventFormContainer from './events/event_form_container';
+import CreateAvailabilityFormContainer from './availabilities/create_availability_form_container';
 import ProOptions from './options/pro_options';
 import MemberOptions from './options/member_options';
 import { Route, Link, Switch } from 'react-router-dom';
@@ -28,6 +29,7 @@ const App = () => (
     <ProtectedRoute exact path="/options/member" component={MemberOptions} />
     <ProtectedRoute path="/options/pro/courtsetup" component={CourtSetupContainer} />
     <ProtectedRoute path="/court" component={CourtSheetContainer} />
+    <ProtectedRoute path="/Availabilities" component={CreateAvailabilityFormContainer} />
     <ProtectedRoute exact path="/clinic" component={EventFormContainer} />
   </div>
 );

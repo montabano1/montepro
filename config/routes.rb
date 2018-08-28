@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :clubs, only: [:create, :edit, :show, :index]
     resources :courts, only: [:create, :edit, :show, :index]
     resources :bookings, only: [:create, :destroy, :show, :index]
+    resources :availabilities, only: [:create, :show, :destroy, :index]
     resources :results, only: [:create, :edit, :destroy]
     resources :rosters, only: [:create, :destroy]
     resources :memberships, only: [:create, :destroy]

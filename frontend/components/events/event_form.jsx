@@ -46,12 +46,7 @@ class EventForm extends React.Component {
       this.props.fetchBookings(this.props.currentUser.club_id, e.target.value);
 	  };
 	}
-  toggleHidden() {
-    const x = document.getElementById('weekdays');
-    if (x) {
-      x.classList.toggle('hidden')
-    }
-  }
+  
   toggleHidden() {
     const x = document.getElementById('weekdays');
     if (x) {

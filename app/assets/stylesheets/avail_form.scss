@@ -1,0 +1,39 @@
+.availability-form {
+  margin-left: 20px;
+}
+
+.avail-input {
+  height: 40px;
+  width: 100px;
+  margin: 5px 0 5px 0;
+  background-color: white;
+  font-size: 15px;
+  border: 1px solid black;
+  text-align: center;
+  padding-left: 30px;
+}
+
+.avail-inputs {
+  display: flex;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.avail-items section {
+  max-width: 400px;
+}
+.submit-button-avails {
+  width: 400px;
+  height: 20px;
+  padding: 16px 0;
+  border: 1px;
+  margin-top: 18px;
+  border: 1px solid lightgray;
+  display: inline-block;
+  text-align: center;
+  background-color: #da3743;
+  border-radius: 3px;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
+}
