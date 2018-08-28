@@ -11,7 +11,7 @@ export default (state = {}, action) => {
       newState[action.user.id] = action.user;
       return newState;
     case RECEIVE_USERS:
-      return merge({}, action.user);
+      return merge({}, state, action.user);
     default:
       return state;
   }

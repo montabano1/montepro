@@ -1,0 +1,35 @@
+.pro-choose {
+  font-size: 20px;
+  margin: 20px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.lesson-date-input {
+  margin-left: 20px;
+  height: 52px;
+  width: 180px;
+  background-color: white;
+  border-radius: 3px;
+  font-family: 'ABeeZee', sans-serif;
+  text-align: center;
+  font-size: 15px;
+  overflow: hidden;
+  border: 1px solid black;
+}
+
+.lesson-submit-button {
+  margin: 10px 0 0 20px;
+  width: 362px;
+  height: 20px;
+  padding: 16px;
+  border: 1px;
+  margin-bottom: 8px;
+  border: 1px solid lightgray;
+  display: inline-block;
+  text-align: center;
+  background-color: #da3743;
+  border-radius: 3px;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
+}

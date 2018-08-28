@@ -10,7 +10,6 @@ class CourtSheetContainer extends React.Component {
 
   constructor(props) {
     super(props);
-    const today = new Date();
     this.state = {
       date: this.props.date,
       courttype: 'Tennis',
