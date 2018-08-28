@@ -72,7 +72,7 @@ class ClubJoin extends React.Component {
 	render() {
     const clurbs = Object.values(this.props.clubs).map((club, i) => {
       return (
-        <option value={`${club.id}  ${club.name}`} label={`${club.address}`} key={`${club.id}`}/>
+        <option value={`${club.id}  ${club.name}`} label={`${club.id} - ${club.name} - ${club.address}`} key={`${club.id}`}/>
       );
     })
     return (
@@ -81,16 +81,16 @@ class ClubJoin extends React.Component {
           <h3 >Join your Club!</h3>
         </div>
         <div className='errors-div'>{this.renderErrors()}</div>
-        <datalist id="clubs">
-          {clurbs}
-        </datalist>
 				<form onSubmit={this.handleSubmit} className='login-form'>
-            <input
-              className='email-input'
-              type="text"
-              list="clubs"
-              placeholder="Club Name"
-              onChange={this.updateClub()} />
+            <div>
+              <select
+                className='choose-club-input'
+                type="text"
+                onChange={this.updateClub()}>
+                <option value='' label='Please choose your club' />
+                {clurbs}
+                </select>
+              </div>
             <input
               className='email-input'
               type="text"

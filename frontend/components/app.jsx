@@ -10,6 +10,7 @@ import EventFormContainer from './events/event_form_container';
 import CreateAvailabilityFormContainer from './availabilities/create_availability_form_container';
 import ProOptions from './options/pro_options';
 import MemberOptions from './options/member_options';
+import LessonOptions from './lessons/lesson_options';
 import { Route, Link, Switch } from 'react-router-dom';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import Modal from './modal/modal';
@@ -29,7 +30,8 @@ const App = () => (
     <ProtectedRoute exact path="/options/member" component={MemberOptions} />
     <ProtectedRoute path="/options/pro/courtsetup" component={CourtSetupContainer} />
     <ProtectedRoute path="/court" component={CourtSheetContainer} />
-    <ProtectedRoute path="/Availabilities" component={CreateAvailabilityFormContainer} />
+    <ProtectedRoute path="/availabilities" component={CreateAvailabilityFormContainer} />
+    <ProtectedRoute exact path="/lesson" component={LessonOptions} />
     <ProtectedRoute exact path="/clinic" component={EventFormContainer} />
   </div>
 );

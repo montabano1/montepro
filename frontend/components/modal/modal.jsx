@@ -56,7 +56,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    closeModal: () => dispatch(closeModal())
+    closeModal: () => {
+      window.scrollTo(0,0);
+      dispatch(closeModal())}
   };
 };
 
