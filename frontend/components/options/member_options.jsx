@@ -25,12 +25,12 @@ class MemberOptions extends React.Component {
             onChange={this.updateChoice()}>
             <option value='' label='Please choose' />
             <option value={`/court/${today.getFullYear()}-${(today.getMonth() + 101).toString().slice(1)}-${(today.getDate() + 100).toString().slice(1)}`} label='Book a court' />
-            <option value='/Lesson' label='Book a lesson' />
-            <option value='/Register' label='Register for Clinic / Tournament' />
-            <option value='/Comment' label='Leave a comment for your pro' />
-            <option value='/Game' label='Find a game' />
-            <option value='/Profile' label='Update your profile' />
-            <option value='/Lookup' label='Club Lookup' />
+            <option value='/lesson' label='Book a lesson' />
+            <option value='/register' label='Register for Clinic / Tournament' />
+            <option value='/teamemail' label='Send team an email' />
+            <option value='/game' label='Find a game' />
+            <option value='/profile' label='Update your profile' />
+            <option value='/lookup' label='Club Lookup' />
           </select>
         </div>
 
