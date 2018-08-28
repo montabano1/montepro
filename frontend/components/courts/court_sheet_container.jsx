@@ -83,6 +83,12 @@ class CourtSheetContainer extends React.Component {
         filtered_courts.push(this.props.courts[i]);
       }
     }
+    let user_booked = 0
+    this.props.bookings.forEach((b) => {
+      if (b.booked_by_id === this.props.currentUser.id) {
+        user_booked += 1;
+      }
+    })
     let court_divs = [];
     for(let j = 0; j < filtered_courts.length; j++) {
       court_divs.push([]);
@@ -95,7 +101,8 @@ class CourtSheetContainer extends React.Component {
               time: i,
               club_id: this.props.currentUser.club_id,
               court_num: filtered_courts[j].id,
-              name: filtered_courts[j].name
+              name: filtered_courts[j].name,
+              already: user_booked
             });
             this.props.openModal('Book');
           }}

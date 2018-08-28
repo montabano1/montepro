@@ -58,6 +58,10 @@ class BookingForm extends React.Component {
           fieldErrors.push([`-Court "${this.props.courts[booking.court_num].name}" is already  booked at ${times[booking.time]}`]);
         }
     })
+    if (this.props.already + parseInt(this.state.end_time) > 4) {
+      fieldErrors.push(['-You have reached the maximum booked court hours for today (2 hours)'])
+    }
+    debugger
     if(fieldErrors.length > 0) {
       this.props.sendErrors(fieldErrors);
     }
@@ -66,7 +70,7 @@ class BookingForm extends React.Component {
       this.props.createBookings(this.state).then(() => {
         this.props.closeModal();
         window.scrollTo(0, 0)
-        this.props.history.push(`/court`);
+        this.props.history.push(`/court/${this.state.date}`);
       })
     }
   }

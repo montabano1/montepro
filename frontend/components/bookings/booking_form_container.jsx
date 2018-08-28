@@ -17,6 +17,7 @@ const mapStateToProps = (state) => {
     name: state.session.info.name,
     bookings: state.entities.bookings,
     courts: state.entities.courts,
+    already: state.session.info.already,
   };
 };
 
