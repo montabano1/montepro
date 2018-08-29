@@ -84,13 +84,23 @@ class LessonTimeForm extends React.Component {
   }
 
 	render() {
-
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    const today = days[new Date(this.state.date).getUTCDay()];
     const ampm = this.props.time < 13 ? 'AM' : 'PM';
     const military = this.props.time < 15 ? 0 : 12;
     const proslist = []
+    const avails = {};
     const pros = this.props.pros;
+    pros.forEach(pro => {
+      avails[pro.id] = []
+    })
+    Object.values(this.props.avails).filter(ava => ava.day === today).forEach(avail => {
+      for(let i = avail.start_time; i <= avail.end_time; i++) {
+        avails[avail.pro_id].push(i)
+      }
+    })
     pros.forEach((pro) => {
-      if (pro.id != this.props.currentUser.id) {
+      if (avails[pro.id].includes(this.state.time)) {
         proslist.push(
           <option className='pro-avail-option' value={pro.id} key={`pro - ${pro.id}`}>{pro.username}</option>
         );
@@ -106,7 +116,7 @@ class LessonTimeForm extends React.Component {
         <section className='booking-options'>
           <strong> Pro: </strong>
           <select
-            className='choose-option-input'
+            className='lesson-time-pro-input'
             id='choices'
             type="text"
             onChange={this.update('pro_id')}

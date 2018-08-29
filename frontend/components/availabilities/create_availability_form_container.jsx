@@ -15,7 +15,6 @@ const mapStateToProps = (state) => {
     pros: Object.values(state.entities.users),
     prosOb: state.entities.users,
     avails: Object.values(state.entities.availabilities),
-    loaded: false
   };
 };
 

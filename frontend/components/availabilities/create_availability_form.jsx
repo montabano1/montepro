@@ -78,10 +78,12 @@ class CreateAvailabilityForm extends React.Component {
       printAvails[i] = [];
     }
     pros.forEach((pro) => {
-      proslist.push(
-        <option className='pro-avail-option' value={pro.id} key={`pro - ${pro.id}`}>{pro.username}</option>
-      );
-      prosAvails[pro.username] = {Saturday: [], Sunday: [], Monday: [], Tuesday: [], Wednesday: [], Thursday: [], Friday: []};
+      if(pro.pro_member === 'pro') {
+        proslist.push(
+          <option className='pro-avail-option' value={pro.id} key={`pro - ${pro.id}`}>{pro.username}</option>
+        );
+        prosAvails[pro.username] = {Saturday: [], Sunday: [], Monday: [], Tuesday: [], Wednesday: [], Thursday: [], Friday: []};
+      }
     })
     if (this.props.prosOb && this.props.avails && this.props.pros) {
       this.props.avails.forEach((avail) => {

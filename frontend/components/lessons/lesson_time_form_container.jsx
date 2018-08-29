@@ -19,9 +19,9 @@ const mapStateToProps = (state) => {
     name: state.session.info.name,
     bookings: state.entities.bookings,
     courts: state.entities.courts,
-    pros: Object.values(state.entities.users),
+    pros: Object.values(state.entities.users).filter(pro => pro.pro_member === 'pro'),
     prosOb: state.entities.users,
-
+    avails: state.entities.availabilities,
   };
 };
 

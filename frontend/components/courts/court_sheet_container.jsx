@@ -35,8 +35,10 @@ class CourtSheetContainer extends React.Component {
     this.props.fetchBookings(this.props.currentUser.club_id, this.state.date)
   }
   render() {
+
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     const times = (
-      <div className='court-day' > Time
+      <div className='court-day' > Time  \  Court:
         <div className='court-time' value="6:00">6:00 AM</div>
         <div className='court-time' value="6:30">6:30 AM</div>
         <div className='court-time' value="7:00">7:00 AM</div>
@@ -146,6 +148,7 @@ class CourtSheetContainer extends React.Component {
             <option value="Other">Other</option>
           </select>
         </section>
+        <strong className='weekday'>{days[new Date(this.state.date).getUTCDay()]}</strong>
         <main className='court-sheet'>
           {times}
           {club_courts}
