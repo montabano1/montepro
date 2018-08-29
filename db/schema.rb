@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_28_215803) do
+ActiveRecord::Schema.define(version: 2018_08_29_015845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 2018_08_28_215803) do
     t.string "color"
     t.integer "time"
     t.string "event_type"
+    t.integer "pro_id"
     t.index ["booked_by_id"], name: "index_bookings_on_booked_by_id"
     t.index ["court_num"], name: "index_bookings_on_court_num"
     t.index ["time", "date", "court_num"], name: "index_bookings_on_time_and_date_and_court_num", unique: true

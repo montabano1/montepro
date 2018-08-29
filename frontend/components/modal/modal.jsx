@@ -6,6 +6,7 @@ import SignupContainer from '../session/signup_container';
 import ClubRegisterContainer from '../options/club_register_container';
 import ClubJoinContainer from '../options/club_join_container';
 import BookingFormContainer from '../bookings/booking_form_container';
+import LessonTimeFormContainer from '../lessons/lesson_time_form_container';
 
 function Modal({modal, closeModal}) {
   if (!modal) {
@@ -28,6 +29,9 @@ function Modal({modal, closeModal}) {
       break;
     case 'Book':
       component = <BookingFormContainer className='modal-child-container'/>;
+      break;
+    case 'LessonTime':
+      component = <LessonTimeFormContainer className='modal-child-container'/>;
       break;
     case 'loading':
       component = <div className='loading'>

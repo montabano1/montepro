@@ -14,7 +14,8 @@ class Api::BookingsController < ApplicationController
           title: booking_params[:title],
           court_num: booking_params[:court_num],
           booked_by_id: booking_params[:booked_by_id],
-          event_type: booking_params[:event_type]
+          event_type: booking_params[:event_type],
+          pro_id: booking_params[:pro_id]
         )
         if temp.save
           @bookings << temp
@@ -40,7 +41,9 @@ class Api::BookingsController < ApplicationController
               title: booking_params[:title],
               court_num: booking_params[:court_num],
               booked_by_id: booking_params[:booked_by_id],
-              event_type: booking_params[:event_type]
+              event_type: booking_params[:event_type],
+              pro_id: booking_params[:pro_id]
+
             )
             if temp.save
               @bookings << temp
@@ -86,7 +89,7 @@ class Api::BookingsController < ApplicationController
   def booking_params
     params.require(:booking).permit(:color, :date, :time, :club_id, :court_num,
       :booked_by_id, :title, :bookings, :registerable, :day, :start_time, :end_time,
-    :maxppl, :event_type, :recd)
+    :maxppl, :event_type, :recd, :pro_id)
   end
 
   def date

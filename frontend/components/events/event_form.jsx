@@ -108,11 +108,11 @@ class EventForm extends React.Component {
       confirmedcourts.forEach((court) => {
         if(((booking.time <= this.state.end_time && booking.time >= this.state.start_time) &&
         parseInt(court) === booking.court_num)) {
-          fieldErrors.push([`-Court "${this.props.courtsCheck[booking.court_num].name}" is already  booked at ${times[booking.time]}`]);
+          fieldErrors.push([`-Court "${this.props.courtsCheck[booking.court_num].name}" is already  booked at ${times[booking.time]} on ${booking.date}`]);
         }
       })
     })
-
+    debugger
     if(fieldErrors.length > 0) {
       this.props.sendErrors(fieldErrors);
     }
@@ -122,14 +122,15 @@ class EventForm extends React.Component {
         recdate = this.state.date
       }
       this.props.createEvent(this.state).then(() => {
-        confirmedcourts.forEach((court) => {
+        confirmedcourts.forEach((court, i) => {
           confirmeddays.forEach((day)=> {
             this.props.createBookings(merge({}, this.state, {
               booked_by_id: this.props.currentUser.id,
               day: day,
               court_num: parseInt(court),
               recd: recdate,
-              event_type: this.state.event_type
+              event_type: this.state.event_type,
+              pro_id: parseInt(confirmedpros[i])
             }))
           })
         })
