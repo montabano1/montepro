@@ -48,7 +48,6 @@ class Api::BookingsController < ApplicationController
             if temp.save
               @bookings << temp
             else
-              debugger
               @errors << [`There is already a court booked on #{temp[date]} at #{temp[time]}`]
             end
             i += 1

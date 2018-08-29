@@ -20,6 +20,7 @@ const mapStateToProps = (state) => {
     bookings: state.entities.bookings,
     courts: state.entities.courts,
     pros: Object.values(state.entities.users),
+    prosOb: state.entities.users,
 
   };
 };

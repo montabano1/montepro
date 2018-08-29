@@ -3,6 +3,14 @@ import { withRouter } from 'react-router-dom';
 import { Link, Redirect } from 'react-router-dom';
 import { merge } from 'lodash';
 
+const times = ['6:00 AM','6:30 AM','7:00 AM','7:30 AM','8:00 AM','8:30 AM',
+'9:00 AM','9:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM','12:00 PM',
+'12:30 PM','1:00 PM','1:30 PM','2:00 PM','2:30 PM','3:00 PM','3:30 PM',
+'4:00 PM','4:30 PM','5:00 PM','5:30 PM','6:00 PM','6:30 PM','7:00 PM',
+'7:30 PM','8:00 PM','8:30 PM','9:00 PM','9:30 PM','10:00 PM','10:30 PM',
+'11:00 PM','11:30 PM'
+]
+
 class LessonTimeForm extends React.Component {
 
   constructor(props) {
@@ -13,7 +21,6 @@ class LessonTimeForm extends React.Component {
       club_id: this.props.club_id,
       court_num: this.props.court_num,
       booked_by_id: this.props.currentUser.id,
-      title: '',
       end_time: '2',
       event_type: 'lesson',
       pro_id: 0
@@ -49,37 +56,35 @@ class LessonTimeForm extends React.Component {
     const fieldErrors = [];
     const booking_amt = parseInt(document.getElementById('booking-amt').value);
     const bookings = Object.values(this.props.bookings)
+    const pros = this.props.prosOb;
+    if (this.state.pro_id === 0) {
+      fieldErrors.push(['-Please choose a pro']);
+    }
     bookings.forEach((booking) => {
       if(this.state.time <= booking.time && this.state.time + booking_amt - 1 >= booking.time &&
          this.state.court_num === booking.court_num) {
           fieldErrors.push([`-Court "${this.props.courts[booking.court_num].name}" is already  booked at ${times[booking.time]}`]);
         }
+      if(booking.pro_id === parseInt(this.state.pro_id) && booking.time === this.state.time) {
+        fieldErrors.push([`-${pros[this.state.pro_id].username}" is already booked at ${times[booking.time]}`]);
+      }
     })
-    if (this.props.already + parseInt(this.state.end_time) > 4) {
-      fieldErrors.push(['-You have reached the maximum booked court hours for today (2 hours)'])
-    }
-    debugger
     if(fieldErrors.length > 0) {
       this.props.sendErrors(fieldErrors);
     }
     else {
       const booking_amt = document.getElementById('booking-amt').value;
-      this.props.createBookings(this.state).then(() => {
+      debugger
+      this.props.createBookings(merge({}, this.state, {title: `Lesson with ${pros[parseInt(this.state.pro_id)].username}`})).then(() => {
         this.props.closeModal();
         window.scrollTo(0, 0)
-        this.props.history.push(`/court/${this.state.date}`);
+        this.props.history.push(`/lesson/time/${this.state.date}`);
       })
     }
   }
 
 	render() {
-    const times = ['6:00 AM','6:30 AM','7:00 AM','7:30 AM','8:00 AM','8:30 AM',
-    '9:00 AM','9:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM','12:00 PM',
-    '12:30 PM','1:00 PM','1:30 PM','2:00 PM','2:30 PM','3:00 PM','3:30 PM',
-    '4:00 PM','4:30 PM','5:00 PM','5:30 PM','6:00 PM','6:30 PM','7:00 PM',
-    '7:30 PM','8:00 PM','8:30 PM','9:00 PM','9:30 PM','10:00 PM','10:30 PM',
-    '11:00 PM','11:30 PM'
-    ]
+
     const ampm = this.props.time < 13 ? 'AM' : 'PM';
     const military = this.props.time < 15 ? 0 : 12;
     const proslist = []
@@ -87,7 +92,7 @@ class LessonTimeForm extends React.Component {
     pros.forEach((pro) => {
       if (pro.id != this.props.currentUser.id) {
         proslist.push(
-          <option className='pro-avail-option' value={[pro.id, pro.username]} key={`pro - ${pro.id}`}>{pro.username}</option>
+          <option className='pro-avail-option' value={pro.id} key={`pro - ${pro.id}`}>{pro.username}</option>
         );
       }
     });

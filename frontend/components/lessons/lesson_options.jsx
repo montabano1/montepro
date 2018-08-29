@@ -34,7 +34,7 @@ class LessonOptions extends React.Component {
   }
   updateChoice() {
     const today = new Date();
-    
+
     return (e) => {
       if (e.target.value === '/lesson/time') {
         this.props.history.push(`/lesson/time/${today.getFullYear()}-${(today.getMonth() + 101).toString().slice(1)}-${(today.getDate() + 100).toString().slice(1)}`)
