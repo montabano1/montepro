@@ -72,7 +72,7 @@ class ClubJoin extends React.Component {
 	render() {
     const clurbs = Object.values(this.props.clubs).map((club, i) => {
       return (
-        <option value={`${club.id}  ${club.name}`} label={`${club.id} - ${club.name} - ${club.address}`} key={`${club.id}`}/>
+        <option value={`${club.id}  ${club.name}`} key={`${club.id}`}>{`${club.id} - ${club.name} - ${club.address}`}</option>
       );
     })
     return (
@@ -87,7 +87,7 @@ class ClubJoin extends React.Component {
                 className='choose-club-input'
                 type="text"
                 onChange={this.updateClub()}>
-                <option value='' label='Please choose your club' />
+                <option value=''>Please choose your club</option>
                 {clurbs}
                 </select>
               </div>

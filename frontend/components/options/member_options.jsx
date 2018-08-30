@@ -23,14 +23,14 @@ class MemberOptions extends React.Component {
             className='choose-option-input'
             type="text"
             onChange={this.updateChoice()}>
-            <option value='' label='Please choose' />
-            <option value={`/court/${today.getFullYear()}-${(today.getMonth() + 101).toString().slice(1)}-${(today.getDate() + 100).toString().slice(1)}`} label='Book a court' />
-            <option value='/lesson' label='Book a lesson' />
-            <option value='/register' label='Register for Clinic / Tournament' />
-            <option value='/teamemail' label='Send team an email' />
-            <option value='/game' label='Find a game' />
-            <option value='/profile' label='Update your profile' />
-            <option value='/lookup' label='Club Lookup' />
+            <option value='' >Please choose</option>
+            <option value={`/court/${today.getFullYear()}-${(today.getMonth() + 101).toString().slice(1)}-${(today.getDate() + 100).toString().slice(1)}`} >Book a court</option>
+            <option value='/lesson' >Book a lesson</option>
+            <option value='/register' >Register for Clinic / Tournament</option>
+            <option value='/teamemail' >Send team an email</option>
+            <option value='/game' >Find a game</option>
+            <option value='/profile' >Update your profile</option>
+            <option value='/lookup' >Club Lookup</option>
           </select>
         </div>
 

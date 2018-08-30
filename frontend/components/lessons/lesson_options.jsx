@@ -126,7 +126,7 @@ class LessonOptions extends React.Component {
     })
     const sportslist = []
     sports.forEach(sp => {
-      sportslist.push(<option value={sp} label={sp} />)
+      sportslist.push(<option value={sp} >{sp}</option>)
     })
     const avail_courts = []
     let timeslist = []
@@ -183,7 +183,7 @@ class LessonOptions extends React.Component {
           }
         }
         if (possible) {
-          timeslist.push(<option value={k} label={`${time} - ${arrtimes[parseInt(end_time)+ k]}`} />)
+          timeslist.push(<option value={k}>{`${time} - ${arrtimes[parseInt(end_time)+ k]}`}</option>)
         }
       })
       let chosentime = parseInt(document.getElementById('avails-time-list').value) || 0
@@ -192,15 +192,11 @@ class LessonOptions extends React.Component {
       }
       this.props.courts.filter(court => court.court_type === this.state.sport).forEach(court => {
         if (!court_booked_ids[chosentime].includes(court.id)) {
-          avail_courts.push(<option value={court.id} label={court.name} />)
+          avail_courts.push(<option value={court.id} >{court.name}</option>)
         }
       })
       if (timeslist.length === 0) {
-        timeslist =
-        <option
-          label={`${this.props.prosOb[pro_id].username} not available`}
-          value=''>
-        </option>
+        timeslist = <option value=''>{`${this.props.prosOb[pro_id].username} not available`}</option>
       }
 
     }
@@ -219,9 +215,9 @@ class LessonOptions extends React.Component {
             id='choices'
             type="text"
             onChange={this.updateChoice()}>
-            <option value='' label='Please choose' />
-            <option value='/lesson/pro' label='Book by Pro' />
-            <option value='/lesson/time' label='Book by Time/Day' />
+            <option value='' >Please choose</option>
+            <option value='/lesson/pro' >Book by Pro</option>
+            <option value='/lesson/time' >Book by Time/Day</option>
           </select>
         </div>
         <form
@@ -236,7 +232,7 @@ class LessonOptions extends React.Component {
             type="text"
             onChange={this.updatePro()}
             >
-            <option value='' label='Please choose your pro' />
+            <option value=''>Please choose your pro</option>
             {proslist}
           </select>
           <strong className='pro-choose'>Choose your sport: </strong>

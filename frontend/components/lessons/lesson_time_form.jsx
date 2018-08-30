@@ -122,7 +122,7 @@ class LessonTimeForm extends React.Component {
             type="text"
             onChange={this.update('pro_id')}
             >
-            <option value='' label='Please choose your pro' />
+            <option value=''>Please choose your pro</option>
             {proslist}
           </select>
             <br/>
