@@ -112,7 +112,6 @@ class EventForm extends React.Component {
         }
       })
     })
-    debugger
     if(fieldErrors.length > 0) {
       this.props.sendErrors(fieldErrors);
     }

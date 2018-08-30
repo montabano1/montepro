@@ -5,7 +5,6 @@ import { sendErrors } from '../../actions/session_actions';
 import { closeModal } from '../../actions/modal_actions';
 import { fetchPros } from '../../actions/user_actions';
 import { createAvailability, fetchAvailabilities } from '../../actions/availability_actions';
-import { sendInfo } from '../../actions/court_actions';
 
 
 const mapStateToProps = (state) => {
@@ -24,7 +23,6 @@ const mapDispatchToProps = dispatch => {
     fetchPros: (id) => dispatch(fetchPros(id)),
     createAvailability: (availability) => dispatch(createAvailability(availability)),
     fetchAvailabilities: (id) => dispatch(fetchAvailabilities(id)),
-    sendInfo: (info) => dispatch(sendInfo(info)),
   };
 };
 

@@ -17,9 +17,11 @@ class Api::BookingsController < ApplicationController
           event_type: booking_params[:event_type],
           pro_id: booking_params[:pro_id]
         )
-        if temp.save
-          @bookings << temp
-        else
+        begin
+          if temp.save
+            @bookings << temp
+          end
+        rescue Exception => e
           @errors << [`there is already a court booked on #{temp[date]} at #{temp[time]}`]
         end
         i += 1
@@ -45,10 +47,11 @@ class Api::BookingsController < ApplicationController
               pro_id: booking_params[:pro_id]
 
             )
-            if temp.save
+            begin
+              temp.save
               @bookings << temp
-            else
-              @errors << [`there is already a court booked on #{temp[date]} at #{temp[time]}`]
+            rescue Exception => e
+              @errors << e.cause.to_s.split('=')[-1]
             end
             i += 1
           end

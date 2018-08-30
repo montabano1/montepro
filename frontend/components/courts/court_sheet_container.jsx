@@ -6,6 +6,7 @@ import { fetchBookings } from '../../actions/booking_actions';
 import { openModal } from '../../actions/modal_actions';
 
 
+
 class CourtSheetContainer extends React.Component {
 
   constructor(props) {
@@ -35,6 +36,23 @@ class CourtSheetContainer extends React.Component {
     this.props.fetchBookings(this.props.currentUser.club_id, this.state.date)
   }
   render() {
+    const arrtimes = ['6:00 AM','6:30 AM','7:00 AM','7:30 AM','8:00 AM','8:30 AM',
+    '9:00 AM','9:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM','12:00 PM',
+    '12:30 PM','1:00 PM','1:30 PM','2:00 PM','2:30 PM','3:00 PM','3:30 PM',
+    '4:00 PM','4:30 PM','5:00 PM','5:30 PM','6:00 PM','6:30 PM','7:00 PM',
+    '7:30 PM','8:00 PM','8:30 PM','9:00 PM','9:30 PM','10:00 PM','10:30 PM',
+    '11:00 PM','11:30 PM'
+    ]
+    const errorslist = []
+    if(this.props.errors) {
+      Object.values(this.props.errors).forEach(e => {
+        let temp = e.message.split(')')[0].slice(1).split(',');
+        debugger
+        errorslist.push(
+            <strong className='court-list-error'>{`-${this.props.courtsOb[parseInt(temp[2].slice(1))].name} is already booked on ${temp[1]} at ${arrtimes[parseInt(temp[0])]}`}</strong>        
+          )
+      })
+    }
 
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     const times = (
@@ -148,6 +166,9 @@ class CourtSheetContainer extends React.Component {
             <option value="Other">Other</option>
           </select>
         </section>
+        <section className='court-sheet-errors'>
+          {errorslist}
+        </section>
         <strong className='weekday'>{days[new Date(this.state.date).getUTCDay()]}</strong>
         <main className='court-sheet'>
           {times}
@@ -170,11 +191,15 @@ const mapStateToProps = (state, ownProps) => {
     }
     return 0;
   });
+  let bookings = [];
+  if(state.entities.bookings.bookings) {bookings = Object.values(state.entities.bookings.bookings)}
   return {
-    bookings: Object.values(state.entities.bookings),
+    bookings: bookings,
     courts: courts,
+    courtsOb: state.entities.courts,
     currentUser: state.entities.users[state.session.id],
-    date: ownProps.location.pathname.split('/')[ownProps.location.pathname.split('/').length -1]
+    date: ownProps.location.pathname.split('/')[ownProps.location.pathname.split('/').length -1],
+    errors: state.entities.bookings.errors
   };
 };
 

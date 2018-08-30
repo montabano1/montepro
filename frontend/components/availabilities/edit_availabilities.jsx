@@ -109,10 +109,7 @@ class CreateAvailabilityForm extends React.Component {
         printAvails[i].push([
           <div id={`${pro}-avail-final`}>
             <strong className='avail-pro-name'>{pro}</strong>
-            <div onClick={() => {
-              this.props.sendAvailInfo({pro_id: pro.id});
-              openModal('editAvail')
-            }}>edit</div>
+            <button value='edit'>edit</button>
             <br/>
           </div>
         ])

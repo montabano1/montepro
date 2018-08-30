@@ -13,7 +13,7 @@ export const receiveBooking = booking => {
 export const receiveBookings = bookings => {
   return {
     type: RECEIVE_BOOKINGS,
-    bookings
+    bookings: {bookings: bookings}
   };
 };
 export const receiveCreations = bookings => {
