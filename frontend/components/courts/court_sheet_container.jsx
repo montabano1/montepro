@@ -49,7 +49,7 @@ class CourtSheetContainer extends React.Component {
         let temp = e.message.split(')')[0].slice(1).split(',');
         debugger
         errorslist.push(
-            <strong className='court-list-error'>{`-${this.props.courtsOb[parseInt(temp[2].slice(1))].name} is already booked on ${temp[1]} at ${arrtimes[parseInt(temp[0])]}`}</strong>        
+            <strong className='court-list-error'>{`-${this.props.courtsOb[parseInt(temp[2].slice(1))].name} is already booked on ${temp[1]} at ${arrtimes[parseInt(temp[0])]}`}</strong>
           )
       })
     }
@@ -133,7 +133,12 @@ class CourtSheetContainer extends React.Component {
     for(let j=0; j < bookings.length; j++) {
       for(let k=0; k < filtered_courts.length; k++) {
         if(filtered_courts[k].id === bookings[j].court_num) {
-          court_divs[k][parseInt(bookings[j].time)] = <div className='booked' key={`${k}-${j}`}>{bookings[j].title}</div>;
+          if(this.props.currentUser.pro_member === 'member' && bookings[j].booked_by_id != this.props.currentUser.id) {
+            court_divs[k][parseInt(bookings[j].time)] = <div className='booked' key={`${k}-${j}`}>{bookings[j].title}</div>;
+          }
+          else {
+            court_divs[k][parseInt(bookings[j].time)] = <div className='booked' key={`${k}-${j}`} onClick={() => {this.props.openModal('showbook')}}>{bookings[j].title}</div>
+          }
         }
       }
     }

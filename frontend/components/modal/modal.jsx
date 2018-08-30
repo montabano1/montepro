@@ -33,6 +33,12 @@ function Modal({modal, closeModal}) {
     case 'LessonTime':
       component = <LessonTimeFormContainer className='modal-child-container'/>;
       break;
+    case 'showbook':
+      component = <div className='loading'>
+                    <div className='loader'/>
+                    <span className='loading-text'> loading, please wait... </span>
+                  </div>;
+      break;
     case 'loading':
       component = <div className='loading'>
                     <div className='loader'/>

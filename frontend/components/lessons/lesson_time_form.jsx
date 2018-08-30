@@ -79,7 +79,7 @@ class LessonTimeForm extends React.Component {
         {title: `${last_name} lesson with ${pros[parseInt(this.state.pro_id)].username}`})).then(() => {
         this.props.closeModal();
         window.scrollTo(0, 0)
-        this.props.history.push(`/lesson/time/${this.state.date}`);
+        this.props.history.push(`/court/${this.state.date}`);
       })
     }
   }
