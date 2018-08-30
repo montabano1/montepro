@@ -5,5 +5,4 @@
 end
 
 @errors.each do |error|
-  debugger
 end

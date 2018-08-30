@@ -74,8 +74,9 @@ class LessonTimeForm extends React.Component {
     }
     else {
       const booking_amt = document.getElementById('booking-amt').value;
-      debugger
-      this.props.createBookings(merge({}, this.state, {title: `Lesson with ${pros[parseInt(this.state.pro_id)].username}`})).then(() => {
+      const last_name = this.props.currentUser.username.split(' ')[this.props.currentUser.username.split(' ').length - 1]
+      this.props.createBookings(merge({}, this.state,
+        {title: `${last_name} lesson with ${pros[parseInt(this.state.pro_id)].username}`})).then(() => {
         this.props.closeModal();
         window.scrollTo(0, 0)
         this.props.history.push(`/lesson/time/${this.state.date}`);

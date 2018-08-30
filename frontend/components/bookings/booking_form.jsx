@@ -59,10 +59,9 @@ class BookingForm extends React.Component {
           fieldErrors.push([`-Court "${this.props.courts[booking.court_num].name}" is already  booked at ${times[booking.time]}`]);
         }
     })
-    if (this.props.already + parseInt(this.state.end_time) > 4) {
+    if (this.props.already + parseInt(this.state.end_time) && this.props.currentUser.pro_member === 'member' > 4) {
       fieldErrors.push(['-You have reached the maximum booked court hours for today (2 hours)'])
     }
-    debugger
     if(fieldErrors.length > 0) {
       this.props.sendErrors(fieldErrors);
     }

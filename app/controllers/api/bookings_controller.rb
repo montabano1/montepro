@@ -20,7 +20,7 @@ class Api::BookingsController < ApplicationController
         if temp.save
           @bookings << temp
         else
-          @errors << [`There is already a court booked on #{temp[date]} at #{temp[time]}`]
+          @errors << [`there is already a court booked on #{temp[date]} at #{temp[time]}`]
         end
         i += 1
       end
@@ -48,7 +48,7 @@ class Api::BookingsController < ApplicationController
             if temp.save
               @bookings << temp
             else
-              @errors << [`There is already a court booked on #{temp[date]} at #{temp[time]}`]
+              @errors << [`there is already a court booked on #{temp[date]} at #{temp[time]}`]
             end
             i += 1
           end
