@@ -58,8 +58,11 @@ class BookingForm extends React.Component {
          this.state.court_num === booking.court_num) {
           fieldErrors.push([`-Court "${this.props.courts[booking.court_num].name}" is already  booked at ${times[booking.time]}`]);
         }
+      if(booking.booked_by_id === this.props.currentUser.id && booking.court_num === this.props.court_num && this.props.currentUser.pro_member === 'member') {
+        fieldErrors.push(['-You can not book two courts for the same time'])
+      }
     })
-    if (this.props.already + parseInt(this.state.end_time) && this.props.currentUser.pro_member === 'member' > 4) {
+    if (this.props.already + parseInt(this.state.end_time) > 4 && this.props.currentUser.pro_member === 'member') {
       fieldErrors.push(['-You have reached the maximum booked court hours for today (2 hours)'])
     }
     if(fieldErrors.length > 0) {

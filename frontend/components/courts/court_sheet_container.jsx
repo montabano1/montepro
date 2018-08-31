@@ -137,7 +137,23 @@ class CourtSheetContainer extends React.Component {
             court_divs[k][parseInt(bookings[j].time)] = <div className='booked' key={`${k}-${j}`}>{bookings[j].title}</div>;
           }
           else {
-            court_divs[k][parseInt(bookings[j].time)] = <div className='booked' key={`${k}-${j}`} onClick={() => {this.props.openModal('showbook')}}>{bookings[j].title}</div>
+            court_divs[k][parseInt(bookings[j].time)] =
+            <div
+              className='booked'
+              key={`${k}-${j}`}
+              onClick={() => {
+                this.props.openModal('showbook');
+                this.props.sendInfo({
+                  booked_by_id: bookings[j].booked_by_id,
+                  court_num: bookings[j].court_num,
+                  date: this.state.date,
+                  title: bookings[j].title,
+                  time: bookings[j].time,
+                  bookid: bookings[j].id
+                })
+              }}>
+              {bookings[j].title}
+            </div>
           }
         }
       }

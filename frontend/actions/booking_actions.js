@@ -2,6 +2,7 @@ import * as APIUtil from '../util/booking_api_util';
 export const RECEIVE_BOOKING = 'RECEIVE_BOOKING';
 export const RECEIVE_BOOKINGS = 'RECEIVE_BOOKINGS';
 export const RECEIVE_CREATIONS = 'RECEIVE_CREATIONS';
+export const RECEIVE_DELETED_BOOKINGS = 'RECEIVE_DELETED_BOOKINGS';
 
 export const receiveBooking = booking => {
   return {
@@ -13,6 +14,12 @@ export const receiveBooking = booking => {
 export const receiveBookings = bookings => {
   return {
     type: RECEIVE_BOOKINGS,
+    bookings: {bookings: bookings}
+  };
+};
+export const receiveDeleted = bookings => {
+  return {
+    type: RECEIVE_DELETED_BOOKINGS,
     bookings: {bookings: bookings}
   };
 };
@@ -48,6 +55,13 @@ export const createBookings = (bookings) => {
   return dispatch => {
     return APIUtil.createBooking(bookings).then(
       bookings => dispatch(receiveCreations(bookings))
+    );
+  };
+};
+export const deleteBooking = (id, rec) => {
+  return dispatch => {
+    return APIUtil.deleteBooking(id, rec).then(
+      bookings => dispatch(receiveDeleted(bookings))
     );
   };
 };

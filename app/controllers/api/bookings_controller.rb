@@ -78,11 +78,19 @@ class Api::BookingsController < ApplicationController
 
   def destroy
     @booking = Booking.find(params[:id])
-    if @booking.destroy
-      render :index
+    if (booking_params[:recurring] == 'No')
+      @bookings = Booking.where(date: @booking.date).where(court_num: @booking.court_num)
+      .where(title: @booking.title).where(booked_by_id: @booking.booked_by_id)
     else
-      render json: ['something went wrong'], status: 422
+      @bookings = Booking.where(court_num: @booking.court_num)
+      .where(title: @booking.title).where(booked_by_id: @booking.booked_by_id)
     end
+    @bookings.each do |book|
+      if Date.parse(book.date) >= Date.parse(@booking.date)
+        book.destroy
+      end
+    end
+    render :index
   end
 
 
@@ -91,7 +99,7 @@ class Api::BookingsController < ApplicationController
   def booking_params
     params.require(:booking).permit(:color, :date, :time, :club_id, :court_num,
       :booked_by_id, :title, :bookings, :registerable, :day, :start_time, :end_time,
-    :maxppl, :event_type, :recd, :pro_id)
+    :maxppl, :event_type, :recd, :pro_id, :recurring)
   end
 
   def date

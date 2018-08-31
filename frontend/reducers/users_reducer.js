@@ -7,9 +7,9 @@ export default (state = {}, action) => {
   let newState = merge({}, state);
   switch(action.type) {
     case RECEIVE_CURRENT_USER:
-    case RECEIVE_USER:
       newState[action.user.id] = action.user;
       return newState;
+    case RECEIVE_USER:
     case RECEIVE_USERS:
       return merge({}, state, action.user);
     default:

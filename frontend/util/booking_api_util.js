@@ -12,6 +12,13 @@ export const fetchBookings = (id, date) => {
     data: { club_id: id, date: date}
   })
 }
+export const deleteBooking = (id, rec) => {
+  return $.ajax ({
+    method: 'DELETE',
+    url: `/api/bookings/${id}`,
+    data: {booking: {recurring: rec}}
+  })
+}
 
 export const createBooking = (booking) => {
   return $.ajax ({

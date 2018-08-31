@@ -196,3 +196,26 @@
   font-family: 'Montserrat', sans-serif;
   font-size: 1.2rem;
 }
+.cancel-booking {
+  display: flex;
+  flex-direction: column;
+  margin-left: 40px;
+  margin-top: 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 30px;
+  font-weight: lighter;
+}
+.book-show-row {
+  margin: 10px 0;
+}
+.pro-option {
+  font-size: 22px
+}
+.booking-delete-recurring {
+  height: 30px;
+  width: 50px;
+  margin: 5px 0 5px 10px;
+  background-color: white;
+  font-size: 15px;
+  border: 1px solid black;
+}

@@ -5,6 +5,7 @@ import LoginContainer from '../session/login_container';
 import SignupContainer from '../session/signup_container';
 import ClubRegisterContainer from '../options/club_register_container';
 import ClubJoinContainer from '../options/club_join_container';
+import BookingShowContainer from '../bookings/booking_show_container';
 import BookingFormContainer from '../bookings/booking_form_container';
 import LessonTimeFormContainer from '../lessons/lesson_time_form_container';
 
@@ -34,10 +35,7 @@ function Modal({modal, closeModal}) {
       component = <LessonTimeFormContainer className='modal-child-container'/>;
       break;
     case 'showbook':
-      component = <div className='loading'>
-                    <div className='loader'/>
-                    <span className='loading-text'> loading, please wait... </span>
-                  </div>;
+      component = <BookingShowContainer className='modal-child-container'/>;
       break;
     case 'loading':
       component = <div className='loading'>
