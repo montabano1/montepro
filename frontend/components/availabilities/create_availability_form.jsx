@@ -87,7 +87,9 @@ class CreateAvailabilityForm extends React.Component {
     })
     if (this.props.prosOb && this.props.avails && this.props.pros) {
       this.props.avails.forEach((avail) => {
-        prosAvails[this.props.prosOb[avail.pro_id].username][avail.day].push(` ${times[avail.start_time]} - ${times[avail.end_time]}`)
+        if (this.props.prosOb[avail.pro_id]) {
+          prosAvails[this.props.prosOb[avail.pro_id].username][avail.day].push(` ${times[avail.start_time]} - ${times[avail.end_time]}`)
+        }
       })
       days.forEach((day, i) => {
         dayslist.push(
@@ -107,13 +109,12 @@ class CreateAvailabilityForm extends React.Component {
       })
       namepros.forEach((pro, i) => {
         printAvails[i].push([
-          <div id={`${pro}-avail-final`}>
+          <div id={`${pro}-avail-final`} className='avail-show-pro'>
             <strong className='avail-pro-name'>{pro}</strong>
-            <div onClick={() => {
-              this.props.sendAvailInfo({pro_id: pro.id});
-              openModal('editAvail')
-            }}>edit</div>
-            <br/>
+            <button className='avail-show-button' onClick={() => {
+              this.props.sendInfo({pro_id: this.props.pros.filter(dude => dude.username === pro)[0].id});
+              this.props.openModal('editAvail')
+            }}>edit</button>
           </div>
         ])
         if (availslist[pro].length === 0) {
@@ -212,15 +213,15 @@ class CreateAvailabilityForm extends React.Component {
           <h3 >Create your Pro Availabilities!</h3>
           <div className='event-errors-div'>{this.renderErrors()}</div>
         </div>
-
-				<form onSubmit={this.handleSubmit} className='avail-items'>
-          {avail_input}
-
-          <input className='submit-button-avails' type="submit" value="Create Availability" />
-        </form>
-        <section className='availability-list'>
-          {printAvails}
-        </section>
+        <div className='avails-page'>
+          <section className='availability-list'>
+            {printAvails}
+          </section>
+          <form onSubmit={this.handleSubmit} className='avail-items'>
+            {avail_input}
+            <input className='submit-button-avails' type="submit" value="Create Availability" />
+          </form>
+        </div>
       </div>
     );
   }

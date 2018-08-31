@@ -7,6 +7,7 @@ import ClubRegisterContainer from '../options/club_register_container';
 import ClubJoinContainer from '../options/club_join_container';
 import BookingShowContainer from '../bookings/booking_show_container';
 import BookingFormContainer from '../bookings/booking_form_container';
+import EditAvailabilitiesContainer from '../availabilities/edit_availabilities_container';
 import LessonTimeFormContainer from '../lessons/lesson_time_form_container';
 
 function Modal({modal, closeModal}) {
@@ -36,6 +37,9 @@ function Modal({modal, closeModal}) {
       break;
     case 'showbook':
       component = <BookingShowContainer className='modal-child-container'/>;
+      break;
+    case 'editAvail':
+      component = <EditAvailabilitiesContainer className='modal-child-container'/>;
       break;
     case 'loading':
       component = <div className='loading'>

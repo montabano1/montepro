@@ -10,6 +10,12 @@ export const editAvailability = (id) => {
     url: `/api/availabilities/${id}`
   })
 }
+export const deleteAvailability = (id) => {
+  return $.ajax ({
+    method: 'DELETE',
+    url: `/api/availabilities/${id}`
+  })
+}
 
 export const fetchAvailabilities = (id) => {
   return $.ajax ({

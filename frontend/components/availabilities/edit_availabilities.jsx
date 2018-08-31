@@ -12,24 +12,16 @@ const times = ['6:00 AM','6:30 AM','7:00 AM','7:30 AM','8:00 AM','8:30 AM',
 ]
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
-class CreateAvailabilityForm extends React.Component {
+class EditAvailabilities extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      pro_id: this.props.currentUser.id,
-      start_time: 0,
-      end_time: 0,
-      day: 'Sunday',
-      club_id: this.props.currentUser.club_id
+      avail_id: 0,
+      currentPro: this.props.currentPro,
     };
 		this.handleSubmit = this.handleSubmit.bind(this);
     this.renderErrors = this.renderErrors.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.fetchPros(this.props.currentUser.club_id);
-    this.props.fetchAvailabilities(this.props.currentUser.club_id);
   }
 
   update(field) {
@@ -49,7 +41,9 @@ class CreateAvailabilityForm extends React.Component {
       </ul>
     );
   }
-
+  handleDelete(id) {
+    this.props.deleteAvailability(id)
+  }
 	handleSubmit(e) {
     e.preventDefault();
     const fieldErrors = [];
@@ -87,7 +81,14 @@ class CreateAvailabilityForm extends React.Component {
     })
     if (this.props.prosOb && this.props.avails && this.props.pros) {
       this.props.avails.forEach((avail) => {
-        prosAvails[this.props.prosOb[avail.pro_id].username][avail.day].push(` ${times[avail.start_time]} - ${times[avail.end_time]}`)
+        if (this.props.prosOb[avail.pro_id]) {
+          prosAvails[this.props.prosOb[avail.pro_id].username][avail.day].push(
+            <div className='avail-edit-time'>
+            <strong>{times[avail.start_time]} - {times[avail.end_time]}</strong>
+            <button className='avail-edit-button' onClick={() => this.handleDelete(avail.id)}> delete </button>
+            </div>
+          )
+        }
       })
       days.forEach((day, i) => {
         dayslist.push(
@@ -101,24 +102,26 @@ class CreateAvailabilityForm extends React.Component {
       namepros.forEach((pro)=> {
         days.forEach((day) => {
           if(prosAvails[pro][day].length > 0) {
-            availslist[pro].push(`${day}: ${prosAvails[pro][day]}`)
+            availslist[pro].push(
+              <div className='avail-edit-avail'>
+                <strong className='avail-edit-day'>{day}:</strong>
+                <section className='avail-edit-time-section'>
+                  <strong className='avail-edit-time'>{prosAvails[pro][day]}</strong>
+                </section>
+              </div>
+            )
           }
         })
       })
       namepros.forEach((pro, i) => {
-        printAvails[i].push([
-          <div id={`${pro}-avail-final`}>
-            <strong className='avail-pro-name'>{pro}</strong>
-            <button value='edit'>edit</button>
-            <br/>
-          </div>
-        ])
-        if (availslist[pro].length === 0) {
-          printAvails[i].push(<div className='daily-avail'><strong>No availabilities yet</strong></div>)
-        } else {
-          availslist[pro].forEach((avail) => {
-            printAvails[i].push(<div className='daily-avail'><strong>{avail}</strong></div>)
-          })
+        if(pro === this.props.prosOb[this.state.currentPro].username) {
+          if (availslist[pro].length === 0) {
+            printAvails[i].push(<div className='daily-avail'><strong>No availabilities yet</strong></div>)
+          } else {
+            availslist[pro].forEach((avail) => {
+              printAvails[i].push(<div className='daily-avail'>{avail}</div>)
+            })
+          }
         }
       })
 
@@ -169,7 +172,7 @@ class CreateAvailabilityForm extends React.Component {
             className='avail-input'
             type="text"
             placeholder={pros[0].username}
-            onChange={this.update('pro_id')} >
+            onChange={this.update('currentPro')} >
             {proslist}
           </select>
         </section>
@@ -206,15 +209,9 @@ class CreateAvailabilityForm extends React.Component {
     return (
       <div className='availability-form'>
 				<div id='please-sign-up'>
-          <h3 >Create your Pro Availabilities!</h3>
+          <h3 > {this.props.prosOb[this.state.currentPro].username}'s availabilities:</h3>
           <div className='event-errors-div'>{this.renderErrors()}</div>
         </div>
-
-				<form onSubmit={this.handleSubmit} className='avail-items'>
-          {avail_input}
-
-          <input className='submit-button-avails' type="submit" value="Create Availability" />
-        </form>
         <section className='availability-list'>
           {printAvails}
         </section>
@@ -224,4 +221,4 @@ class CreateAvailabilityForm extends React.Component {
 
 }
 
-export default withRouter(CreateAvailabilityForm);
+export default withRouter(EditAvailabilities);

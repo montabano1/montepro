@@ -17,6 +17,15 @@ class Api::AvailabilitiesController < ApplicationController
     @availabilities = Availability.where(club_id: id)
   end
 
+  def destroy
+    @availability = Availability.find(params[:id])
+    if @availability.destroy
+      render :show
+    else
+      render json: ['Something went wrong with deleting your availability']
+    end
+  end
+
   private
 
   def availability_params
