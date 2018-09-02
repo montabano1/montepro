@@ -206,6 +206,7 @@ class EventForm extends React.Component {
                 <option value='adult clinic'>Adult Clinic</option>
                 <option value='kids clinic'>Kids Clinic</option>
                 <option value='tournament'>Tournament</option>
+                <option value='lesson'>Lesson</option>
                 <option value='match'>Match</option>
                 <option value='member event'>Member Event</option>
                 <option value='other'>Other</option>

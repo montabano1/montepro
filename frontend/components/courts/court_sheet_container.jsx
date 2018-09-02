@@ -57,42 +57,42 @@ class CourtSheetContainer extends React.Component {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     const times = (
       <div className='court-day' > Time  \  Court:
-        <div className='court-time' value="6:00">6:00 AM</div>
-        <div className='court-time' value="6:30">6:30 AM</div>
-        <div className='court-time' value="7:00">7:00 AM</div>
-        <div className='court-time' value="7:30">7:30 AM</div>
-        <div className='court-time' value="8:00">8:00 AM</div>
-        <div className='court-time' value="8:30">8:30 AM</div>
-        <div className='court-time' value="9:00">9:00 AM</div>
-        <div className='court-time' value="9:30">9:30 AM</div>
-        <div className='court-time' value="10:00">10:00 AM</div>
-        <div className='court-time' value="10:30">10:30 AM</div>
-        <div className='court-time' value="11:00">11:00 AM</div>
-        <div className='court-time' value="11:30">11:30 AM</div>
-        <div className='court-time' value="12:00">12:00 PM</div>
-        <div className='court-time' value="12:30">12:30 PM</div>
-        <div className='court-time' value="13:00">1:00 PM</div>
-        <div className='court-time' value="13:30">1:30 PM</div>
-        <div className='court-time' value="14:00">2:00 PM</div>
-        <div className='court-time' value="14:30">2:30 PM</div>
-        <div className='court-time' value="15:00">3:00 PM</div>
-        <div className='court-time' value="15:30">3:30 PM</div>
-        <div className='court-time' value="16:00">4:00 PM</div>
-        <div className='court-time' value="16:30">4:30 PM</div>
-        <div className='court-time' value="17:00">5:00 PM</div>
-        <div className='court-time' value="17:30">5:30 PM</div>
-        <div className='court-time' value="18:00">6:00 PM</div>
-        <div className='court-time' value="18:30">6:30 PM</div>
-        <div className='court-time' value="19:00">7:00 PM</div>
-        <div className='court-time' value="19:30">7:30 PM</div>
-        <div className='court-time' value="20:00">8:00 PM</div>
-        <div className='court-time' value="20:30">8:30 PM</div>
-        <div className='court-time' value="21:00">9:00 PM</div>
-        <div className='court-time' value="21:30">9:30 PM</div>
-        <div className='court-time' value="22:00">10:00 PM</div>
-        <div className='court-time' value="22:30">10:30 PM</div>
-        <div className='court-time' value="23:00">11:00 PM</div>
-        <div className='court-time' value="23:30">11:30 PM</div>
+        <div className='court-time' key="6:00" value="6:00">6:00 AM</div>
+        <div className='court-time' key="6:30" value="6:30">6:30 AM</div>
+        <div className='court-time' key="7:00" value="7:00">7:00 AM</div>
+        <div className='court-time' key="7:30" value="7:30">7:30 AM</div>
+        <div className='court-time' key="8:00" value="8:00">8:00 AM</div>
+        <div className='court-time' key="8:30" value="8:30">8:30 AM</div>
+        <div className='court-time' key="9:00" value="9:00">9:00 AM</div>
+        <div className='court-time' key="9:30" value="9:30">9:30 AM</div>
+        <div className='court-time' key="10:00" value="10:00">10:00 AM</div>
+        <div className='court-time' key="10:30" value="10:30">10:30 AM</div>
+        <div className='court-time' key="11:00" value="11:00">11:00 AM</div>
+        <div className='court-time' key="11:30" value="11:30">11:30 AM</div>
+        <div className='court-time' key="12:00" value="12:00">12:00 PM</div>
+        <div className='court-time' key="12:30" value="12:30">12:30 PM</div>
+        <div className='court-time' key="13:00" value="13:00">1:00 PM</div>
+        <div className='court-time' key="13:30" value="13:30">1:30 PM</div>
+        <div className='court-time' key="14:00" value="14:00">2:00 PM</div>
+        <div className='court-time' key="14:30" value="14:30">2:30 PM</div>
+        <div className='court-time' key="15:00" value="15:00">3:00 PM</div>
+        <div className='court-time' key="15:30" value="15:30">3:30 PM</div>
+        <div className='court-time' key="16:00" value="16:00">4:00 PM</div>
+        <div className='court-time' key="16:30" value="16:30">4:30 PM</div>
+        <div className='court-time' key="17:00" value="17:00">5:00 PM</div>
+        <div className='court-time' key="17:30" value="17:30">5:30 PM</div>
+        <div className='court-time' key="18:00" value="18:00">6:00 PM</div>
+        <div className='court-time' key="18:30" value="18:30">6:30 PM</div>
+        <div className='court-time' key="19:00" value="19:00">7:00 PM</div>
+        <div className='court-time' key="19:30" value="19:30">7:30 PM</div>
+        <div className='court-time' key="20:00" value="20:00">8:00 PM</div>
+        <div className='court-time' key="20:30" value="20:30">8:30 PM</div>
+        <div className='court-time' key="21:00" value="21:00">9:00 PM</div>
+        <div className='court-time' key="21:30" value="21:30">9:30 PM</div>
+        <div className='court-time' key="22:00" value="22:00">10:00 PM</div>
+        <div className='court-time' key="22:30" value="22:30">10:30 PM</div>
+        <div className='court-time' key="23:00" value="23:00">11:00 PM</div>
+        <div className='court-time' key="23:30" value="23:30">11:30 PM</div>
       </div>
     );
 

@@ -12,7 +12,7 @@ import { sendErrors } from '../../actions/session_actions';
 const mapStateToProps = (state) => {
   return {
     currentUser: state.entities.users[state.session.id],
-    club_id: state.session.club_id,
+    club_id: state.session.info.club_id,
     court_amt: state.session.court_amt,
     errors: state.errors.session,
   };

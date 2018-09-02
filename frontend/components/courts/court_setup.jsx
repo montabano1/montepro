@@ -37,7 +37,8 @@ class CourtSetup extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchClub(this.props.currentUser.club_id);
+    this.props.fetchClub(this.props.club_id);
+    this.props.editUser(Object.assign({}, this.props.currentUser, {club_id: this.props.club_id}));
   }
 
 	handleSubmit(e) {
@@ -60,7 +61,7 @@ class CourtSetup extends React.Component {
         });
       }
     }
-    this.props.editUser(Object.assign({}, this.props.currentUser, {authorized: 'true'})).then((user) => {
+    this.props.editUser(Object.assign({}, this.props.currentUser, {authorized: 'true', club_id: this.props.club_id})).then((user) => {
       window.scrollTo(0, 0)
       this.props.history.push(`/options/pro`);
     });

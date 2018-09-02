@@ -5,6 +5,8 @@ import { openModal, closeModal } from '../../actions/modal_actions';
 import { createClub } from '../../actions/club_actions';
 import { createMembership } from '../../actions/membership_actions';
 import { updateUser } from '../../actions/user_actions';
+import { sendInfo } from '../../actions/court_actions';
+
 
 const mapStateToProps = (state) => {
   return {
@@ -21,6 +23,8 @@ const mapDispatchToProps = dispatch => {
     openModal: () => dispatch(openModal()),
     sendErrors: (errors) => dispatch(sendErrors(errors)),
     editUser: (user) => dispatch(updateUser(user)),
+    sendInfo: (info) => dispatch(sendInfo(info)),
+
   };
 };
 

@@ -10,7 +10,7 @@ class Greeting extends React.Component {
   }
   componentDidMount() {
     this.props.currentUser && this.props.currentUser.club_id != 0 ?
-      this.props.fetchClub(this.props.currentUser.club_id) : null
+    this.props.fetchClub(this.props.currentUser.club_id) : null
   }
   render() {
     let club_name = Object.values(this.props.club).length >0 &&

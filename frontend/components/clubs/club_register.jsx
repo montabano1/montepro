@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
+
 class ClubForm extends React.Component {
 
   constructor(props) {
@@ -68,6 +69,7 @@ class ClubForm extends React.Component {
     this.props.processForm(club).then((clurb) => {
       this.props.createMembership({member_id: this.props.currentUser.id, club_id: clurb.club.id});
       this.props.editUser(Object.assign({}, this.props.currentUser, {club_id: clurb.club.id}));
+      this.props.sendInfo({club_id: clurb.club.id})
       this.props.closeModal();
       window.scrollTo(0, 0)
       this.props.history.push(`/options/pro/courtsetup/${this.state.court_amt}`);
