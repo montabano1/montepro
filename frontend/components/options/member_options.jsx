@@ -32,6 +32,7 @@ class MemberOptions extends React.Component {
             <option value='/game' >Find a game</option>
             <option value='/profile' >Update your profile</option>
             <option value='/lookup' >Club Lookup</option>
+            <option value='/activity' >Your Activity</option>
           </select>
         </div>
 
@@ -42,14 +43,14 @@ class MemberOptions extends React.Component {
           <Link to={'/register'}>
             <div className='button-options'>Register for Adult Clinic / Tournament</div>
           </Link>
+          <Link to={'/lesson'}>
+          <div className='button-options'>Book a Lesson</div>
+          </Link>
           <Link to={'/game'}>
             <div className='button-options'>Find a Game</div>
           </Link>
           <Link to={'/teamemail'}>
           <div className='button-options'>Send your team an email</div>
-          </Link>
-          <Link to={'/lesson'}>
-            <div className='button-options'>Book a Lesson</div>
           </Link>
           <Link to={'/kidsregister'}>
             <div className='button-options'>Register for Kids Clinic</div>
@@ -59,6 +60,9 @@ class MemberOptions extends React.Component {
           </Link>
           <Link to={'/lookup'}>
             <div className='button-options'>Club Lookup</div>
+          </Link>
+          <Link to={'/activity'}>
+            <div className='button-options'>Your Activity</div>
           </Link>
         </section>
       </main>

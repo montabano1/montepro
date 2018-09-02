@@ -19,7 +19,7 @@ class LessonOptions extends React.Component {
       pro_name: '',
       end_time: '2',
       sport: 'Tennis',
-      time: 0,
+      time: '',
       court_num: 0,
     };
     this.toggled = false;
@@ -92,6 +92,12 @@ class LessonOptions extends React.Component {
       }
       if(this.state.date.length === 0) {
         fieldErrors.push([`-Please enter a date to check ${this.state.pro_name}'s availabilities`])
+      }
+      if(this.state.time.length === 0) {
+        fieldErrors.push([`-Please choose a time`])
+      }
+      if(this.state.court_num === 0) {
+        fieldErrors.push([`-Please choose a court`])
       }
     }
     if(fieldErrors.length > 0) {
@@ -224,7 +230,7 @@ class LessonOptions extends React.Component {
         onSubmit={this.handleSubmit}
         id='proform'
         className='lesson-items hidden'>
-          <div className='event-errors-div'>{this.renderErrors()}</div>
+
           <strong className='pro-choose'>Choose your pro: </strong>
           <select
             className='choose-option-input'
@@ -275,6 +281,7 @@ class LessonOptions extends React.Component {
               {avail_courts}
             </select>
           </div>
+          <div className='event-errors-div'>{this.renderErrors()}</div>
           <input id='submit-button' className='lesson-submit-button' type="submit" value="Book your lesson" />
         </form>
       </main>

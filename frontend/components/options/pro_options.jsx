@@ -24,18 +24,23 @@ class ProOptions extends React.Component {
           <Link to={`/court/${today.getFullYear()}-${(today.getMonth() + 101).toString().slice(1)}-${(today.getDate() + 100).toString().slice(1)}`}>
             <div className='button-options'>Create / Edit Court Times</div>
           </Link>
+          <Link to={'/clinic'}>
+          <div className='button-options'>Create / Edit Event (Clinic, Tournament, etc.)</div>
+          </Link>
           <Link to={'/availabilities'}>
             <div className='button-options'>Create / Edit Pro Availabilities</div>
           </Link>
-
-          <Link to={'/results'}>
-            <div className='button-options'>Book a lesson</div>
+          <Link to={'/prolookup'}>
+            <div className='button-options'>Pro Lookup</div>
+          </Link>
+          <Link to={'/memberlookup'}>
+            <div className='button-options'>Member Lookup</div>
+          </Link>
+          <Link to={'/security'}>
+            <div className='button-options'>Edit Member / Pro Privileges</div>
           </Link>
           <Link to={'/email'}>
             <div className='button-options'>Email Team / Members</div>
-          </Link>
-          <Link to={'/clinic'}>
-            <div className='button-options'>Create / Edit Event (Clinic, Tournament, etc.)</div>
           </Link>
           <Link to={'/team'}>
             <div className='button-options'>Create / Edit / Delete Team</div>

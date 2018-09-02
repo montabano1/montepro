@@ -24,7 +24,7 @@ const mapStateToProps = (state) => {
   return {
     errors: state.errors.session,
     currentUser: state.entities.users[state.session.id],
-    pros: Object.values(state.entities.users),
+    pros: Object.values(state.entities.users).filter(user => user.pro_member === 'pro'),
     courts: courts,
     courtsCheck: state.entities.courts,
     bookings: state.entities.bookings,

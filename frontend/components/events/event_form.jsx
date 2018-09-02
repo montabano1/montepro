@@ -140,7 +140,7 @@ class EventForm extends React.Component {
   }
 
   render() {
-    const pros = this.props.pros;
+    const pros = this.props.pros.filter(pro => pro.club_id === this.props.currentUser.club_id);
     const proscheckbox = [];
     pros.forEach((pro) => {
       if (pro.pro_member === 'pro') {
@@ -152,7 +152,7 @@ class EventForm extends React.Component {
         );
       }
     })
-    const courts = this.props.courts;
+    const courts = this.props.courts.filter(court => court.club_id === this.props.currentUser.club_id);;
     const courtscheckbox = [];
     courts.forEach((court) => {
       courtscheckbox.push(
