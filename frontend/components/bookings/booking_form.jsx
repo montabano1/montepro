@@ -52,13 +52,17 @@ class BookingForm extends React.Component {
     e.preventDefault();
     const fieldErrors = [];
     const booking_amt = parseInt(document.getElementById('booking-amt').value);
-    const bookings = Object.values(this.props.bookings)
+    const bookings = Object.values(this.props.bookings.bookings)
+    const time = this.state.time
+    const court_num = this.state.court_num
+    const currentUser = this.props.currentUser
+
     bookings.forEach((booking) => {
-      if(this.state.time <= booking.time && this.state.time + booking_amt - 1 >= booking.time &&
-         this.state.court_num === booking.court_num) {
+      if(time <= booking.time && time + booking_amt - 1 >= booking.time &&
+         court_num === booking.court_num) {
           fieldErrors.push([`-Court "${this.props.courts[booking.court_num].name}" is already  booked at ${times[booking.time]}`]);
         }
-      if(booking.booked_by_id === this.props.currentUser.id && booking.court_num === this.props.court_num && this.props.currentUser.pro_member === 'member') {
+      if(booking.booked_by_id === currentUser.id && booking.time === time && currentUser.pro_member === 'member') {
         fieldErrors.push(['-You can not book two courts for the same time'])
       }
     })

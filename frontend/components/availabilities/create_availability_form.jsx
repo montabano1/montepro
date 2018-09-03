@@ -68,7 +68,7 @@ class CreateAvailabilityForm extends React.Component {
   }
 
   render() {
-    const pros = this.props.pros;
+    const pros = this.props.pros.filter(pro => pro.club_id === this.props.currentUser.club_id);
     const proslist = [];
     const prosAvails = {};
     const dayslist = [];
@@ -210,7 +210,7 @@ class CreateAvailabilityForm extends React.Component {
     return (
       <div className='availability-form'>
 				<div id='please-sign-up'>
-          <h3 >Create your Pro Availabilities!</h3>
+          <h3 >Create your pro's availabilities for lessons:</h3>
           <div className='event-errors-div'>{this.renderErrors()}</div>
         </div>
         <div className='avails-page'>
