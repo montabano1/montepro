@@ -47,7 +47,6 @@ class CourtSheetContainer extends React.Component {
     if(this.props.errors) {
       Object.values(this.props.errors).forEach(e => {
         let temp = e.message.split(')')[0].slice(1).split(',');
-        debugger
         errorslist.push(
             <strong className='court-list-error'>{`-${this.props.courtsOb[parseInt(temp[2].slice(1))].name} is already booked on ${temp[1]} at ${arrtimes[parseInt(temp[0])]}`}</strong>
           )

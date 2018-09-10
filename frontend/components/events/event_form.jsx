@@ -120,7 +120,7 @@ class EventForm extends React.Component {
         confirmeddays.push(days[new Date(this.state.date).getUTCDay()]);
         recdate = this.state.date
       }
-      this.props.createEvent(this.state).then(() => {
+      this.props.createEvent(this.state).then((event) => {
         confirmedcourts.forEach((court, i) => {
           confirmeddays.forEach((day)=> {
             this.props.createBookings(merge({}, this.state, {
@@ -129,7 +129,8 @@ class EventForm extends React.Component {
               court_num: parseInt(court),
               recd: recdate,
               event_type: this.state.event_type,
-              pro_id: parseInt(confirmedpros[i])
+              pro_id: parseInt(confirmedpros[i]),
+              event_id: event.event.id
             }))
           })
         })

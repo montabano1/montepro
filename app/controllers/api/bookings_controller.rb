@@ -15,6 +15,7 @@ class Api::BookingsController < ApplicationController
           court_num: booking_params[:court_num],
           booked_by_id: booking_params[:booked_by_id],
           event_type: booking_params[:event_type],
+          event_id: booking_params[:event_id],
           pro_id: booking_params[:pro_id]
         )
         begin
@@ -44,6 +45,7 @@ class Api::BookingsController < ApplicationController
               court_num: booking_params[:court_num],
               booked_by_id: booking_params[:booked_by_id],
               event_type: booking_params[:event_type],
+              event_id: booking_params[:event_id],
               pro_id: booking_params[:pro_id]
 
             )
@@ -99,7 +101,7 @@ class Api::BookingsController < ApplicationController
   def booking_params
     params.require(:booking).permit(:color, :date, :time, :club_id, :court_num,
       :booked_by_id, :title, :bookings, :registerable, :day, :start_time, :end_time,
-    :maxppl, :event_type, :recd, :pro_id, :recurring)
+    :maxppl, :event_type, :recd, :pro_id, :recurring, :event_id)
   end
 
   def date
